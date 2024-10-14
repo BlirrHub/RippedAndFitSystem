@@ -20,7 +20,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RippedAndFit.Domain\RippedAndFit.Domain.csproj" />
     <ProjectReference Include="..\RippedAndFit.Infrastructure\RippedAndFit.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Member\" />
+    <Folder Include="Views\Staff\" />
   </ItemGroup>
 
 </Project>
