@@ -12,6 +12,9 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Staff> Staffs { get; set; }
     public DbSet<StaffDetails> StaffDetails { get; set; }
+    public DbSet<Member> Member { get; set; }
+    public DbSet<MemberDetails> MemberDetails { get; set; }
+    public DbSet<MemberHealthDetails> MemberHealthDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

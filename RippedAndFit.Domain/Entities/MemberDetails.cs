@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RippedAndFit.Domain.Entities;
 
-public class StaffDetails
+public class MemberDetails
 {
     [Key]
     public int Id { get; set; }
@@ -15,6 +15,7 @@ public class StaffDetails
     public required Genders Gender { get; set; }
     public string? Email { get; set; }
     public string? PhoneNumber { get; set; }
-    [ForeignKey("Staff")]
-    public int StaffId { get; set; }
+    public required MemberType MemberType { get; set; }
+    [ForeignKey("Member")]
+    public int MemberId { get; set; }
 }
