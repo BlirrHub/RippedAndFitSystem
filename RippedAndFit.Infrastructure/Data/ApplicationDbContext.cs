@@ -31,7 +31,7 @@ public class ApplicationDbContext : DbContext
             new Staff
             {
                 Id = 2,
-                Username = "JackyChan",
+                Username = "trainer",
                 Password = "password",
                 Role = StaffRoles.Trainer
             },
@@ -39,47 +39,27 @@ public class ApplicationDbContext : DbContext
             new Staff
             {
                 Id = 3,
-                Username = "Blirr",
-                Password = "Blaire123",
+                Username = "frontdesk",
+                Password = "password",
                 Role = StaffRoles.FrontDesk
             }
         );
 
-        modelBuilder.Entity<StaffDetails>().HasData(
-            new StaffDetails
+        modelBuilder.Entity<Member>().HasData(
+            new Member
             {
                 Id = 1,
-                FirstName = "",
-                LastName = "",
-                DateOfBirth = new DateOnly(2000, 1, 1),
-                Age = 0,
-                Gender = Genders.Other,
-                Email = "",
-                StaffId = 1,
+                Username = "dummy1",
+                Password = "password",
+                Status = MembershipStatus.Active,
             },
 
-            new StaffDetails
+            new Member
             {
                 Id = 2,
-                FirstName = "Jackie",
-                LastName = "Chan",
-                DateOfBirth = new DateOnly(1954, 5, 7),
-                Age = 70,
-                Gender = Genders.Male,
-                Email = "jackychan@gmail.com",
-                StaffId = 2,
-            },
-
-            new StaffDetails
-            {
-                Id = 3,
-                FirstName = "Blaire Cyrel",
-                LastName = "Dela Cruz",
-                DateOfBirth = new DateOnly(2003, 10, 28),
-                Age = 20,
-                Gender = Genders.Male,
-                Email = "blairecyreldc@gmail.com",
-                StaffId = 3,
+                Username = "dummy2",
+                Password = "password",
+                Status = MembershipStatus.Inactive,
             }
         );
     }
