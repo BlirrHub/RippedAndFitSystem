@@ -8,14 +8,22 @@ public class MemberDetails
 {
     [Key]
     public int Id { get; set; }
+    [Required]
     public required string FirstName { get; set; }
     public string? LastName { get; set; }
+    [Required]
     public required DateOnly DateOfBirth { get; set; }
+    [Required]
     public required int Age { get; set; }
+    [Required]
     public required Genders Gender { get; set; }
     public string? Email { get; set; }
     public string? PhoneNumber { get; set; }
+    [Required]
     public required MemberType MemberType { get; set; }
+    [Required]
+    public required MembershipStatus MembershipStatus { get; set; }
     [ForeignKey("Member")]
-    public int MemberId { get; set; }
+    [Required]
+    public required int MemberId { get; set; }
 }

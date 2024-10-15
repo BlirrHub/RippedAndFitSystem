@@ -10,56 +10,45 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    public DbSet<Staff> Staffs { get; set; }
+    public DbSet<Users> Users { get; set; }
     public DbSet<StaffDetails> StaffDetails { get; set; }
-    public DbSet<Member> Member { get; set; }
     public DbSet<MemberDetails> MemberDetails { get; set; }
     public DbSet<MemberHealthDetails> MemberHealthDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         //base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Staff>().HasData(
-            new Staff
+        modelBuilder.Entity<Users>().HasData(
+            new Users
             {
                 Id = 1,
                 Username = "admin",
                 Password = "admin",
-                Role = StaffRoles.Admin
+                Role = Roles.Admin
             },
 
-            new Staff
+            new Users
             {
                 Id = 2,
                 Username = "trainer",
                 Password = "password",
-                Role = StaffRoles.Trainer
+                Role = Roles.Trainer
             },
 
-            new Staff
+            new Users
             {
                 Id = 3,
                 Username = "frontdesk",
                 Password = "password",
-                Role = StaffRoles.FrontDesk
-            }
-        );
-
-        modelBuilder.Entity<Member>().HasData(
-            new Member
-            {
-                Id = 1,
-                Username = "dummy1",
-                Password = "password",
-                Status = MembershipStatus.Active,
+                Role = Roles.FrontDesk
             },
 
-            new Member
+            new Users
             {
-                Id = 2,
-                Username = "dummy2",
+                Id = 4,
+                Username = "member",
                 Password = "password",
-                Status = MembershipStatus.Inactive,
+                Role = Roles.Member
             }
         );
     }

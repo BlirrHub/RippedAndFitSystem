@@ -1,8 +1,9 @@
 ﻿namespace RippedAndFit.Domain.Enums;
 
-public enum StaffRoles
+public enum Roles
 {
     Admin,
     FrontDesk,
-    Trainer
+    Trainer,
+    Member
 }

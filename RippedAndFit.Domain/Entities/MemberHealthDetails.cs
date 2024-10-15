@@ -8,10 +8,15 @@ public class MemberHealthDetails
 {
     [Key]
     public int Id { get; set; }
+    [Required]
     public required decimal Height { get; set; }
+    [Required]
     public required decimal Weight { get; set; }
+    [Required]
     public required FitnessGoal FitnessGoal { get; set; }
+    [Required]
     public required ActivityLevel ActivityLevel { get; set; }
     [ForeignKey("Member")]
-    public int MemberId { get; set; }
+    [Required]
+    public required int MemberId { get; set; }
 }
