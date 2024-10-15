@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RippedAndFit.Domain.Enums;
 using RippedAndFit.Infrastructure.Data;
 using RippedAndFit.Web.Models;
 using System.Diagnostics;
@@ -38,8 +39,7 @@ namespace RippedAndFit.Web.Controllers
 
         public IActionResult Login()
         {
-            var users = _db.Users.ToList();
-            return View(users);
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
