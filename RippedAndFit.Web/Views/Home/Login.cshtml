@@ -1,8 +1,15 @@
-﻿@model IEnumerable<RippedAndFit.Domain.Entities.Users>;
+﻿@model RippedAndFit.Domain.Entities.Users;
 
-<form>
-    <h1>LOG IN</h1>
-    <input placeholder="Username" name="Username"/>
-    <input placeholder="Password" name="Password" type="password" />
-    <button type="submit">Login</button>
+<form method="post">
+    <div>
+        <h1>LOG IN</h1>
+        <p>Let's track your goals</p>
+        <label asp-for="Username"></label>
+        <input asp-for="Username"/>
+        
+        <label asp-for="Password"></label>
+        <input asp-for="Password" name="Password" type="password" />
+        
+        <button asp-controller="Admin" asp-action="Dashboard" type="submit">Login</button>
+    </div>
 </form>

@@ -1,0 +1,78 @@
+
+.hide-desktop {
+
+}
+
+.hide-mobile {
+
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins';
+}
+
+header {
+    background-color: #54576f;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul {
+    background: #54576f;
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    margin: 0;
+    list-style: none;
+    text-align: right;
+    padding: 0 1em 1em 1em;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+    li {
+        margin: 0.5em 0;
+
+        a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+
+            &:nth-of-type(1) {
+                margin-bottom: 1em;
+            }
+            
+            &:hover {
+                color: #ed563b;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.gym-logo {
+    width: 75%;
+    margin: 1em;
+}
+
+.menu-btn {
+    width: 70%;
+}
+
+nav div a img {
+    margin-top: 1em;
+}
+
+.open {
+    transform: translateX(0%);
+}
+
+.home-background {
+    background-image: url(../image/Background-1.svg);
+    background-size: cover;
+}
+
+
+

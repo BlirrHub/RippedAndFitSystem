@@ -9,6 +9,30 @@
     <link rel="stylesheet" href="~/RippedAndFit.Web.styles.css" asp-append-version="true" />
 </head>
 <body>
+    <header>
+        <h1>RIPPED AND FIT GYM</h1>
+    </header>
+    <nav>
+        <div>
+            <ul>
+                <li>
+                    <a asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Registration">Registration</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Staffs">Staffs</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Members">Members</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Logs">Logs</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
