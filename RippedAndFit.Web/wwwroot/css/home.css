@@ -4,9 +4,14 @@
     display: block;
 }
 
+.menu-open {
+    margin-right: 20px
+}
+
 body {
     margin: 0;
     font-family: 'Poppins';
+    overflow: hidden;
 }
 
 header {
@@ -32,7 +37,7 @@ nav ul {
     margin: 0;
     list-style: none;
     width: 250px;
-    text-align: right;
+    text-align: center;
     padding: 2em;
     transform: translateX(100%);
     transition: transform 0.5s ease-in-out;
@@ -105,6 +110,12 @@ nav ul.open {
     border-radius: .5em;
     margin: 0 auto;
     font-size: 1.2rem;
+}
+
+.header-login-btn {
+    padding: 0.2em 1.2em;
+    background: #ed563b;
+    border-radius: .6em;
 }
 
 @media (min-width: 1080px) {

@@ -4,16 +4,23 @@
 
 @model RippedAndFit.Domain.Entities.Users;
 
-<form method="post">
-    <div>
-        <h1>LOG IN</h1>
-        <p>Let's track your goals</p>
-        <label asp-for="Username"></label>
-        <input asp-for="Username"/>
+<div>
+    <div class="right-side">
         
-        <label asp-for="Password"></label>
-        <input asp-for="Password" name="Password" type="password" />
-        
-        <button asp-controller="Admin" asp-action="Dashboard" type="submit">Login</button>
     </div>
-</form>
+    <div class="login-form">
+        <form method="post">
+            <div>
+                <h1>LOG IN</h1>
+                <p>Let's track your goals</p>
+                <label asp-for="Username"></label>
+                <input asp-for="Username" />
+
+                <label asp-for="Password"></label>
+                <input asp-for="Password" name="Password" type="password" />
+
+                <button asp-controller="Admin" asp-action="Dashboard" type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</div>

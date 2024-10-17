@@ -1,5 +1,54 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Registration";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+<h1>Register Member</h1>
+
+<div>
+    <form action="/" method="post">
+        <div class="row-1">
+            <label>Name</label>
+            <input placeholder="First Name"/>
+            <input placeholder="Last Name" />
+            <input placeholder="Suffix"/>
+        </div>
+        <div class="row-1">
+            <label>Sex</label>
+            <div>
+                <input type="radio" />
+                <label>Male</label>
+                <input type="radio" />
+                <label>Female</label>
+            </div>
+            <label>Date of Birth</label>
+            <input placeholder="MM-DD-YYYY" type="date"/>
+        </div>
+        <div class="row-1">
+            <label>Phone</label>
+            <input placeholder="" />
+            <label>Age</label>
+            <input placeholder="" />
+        </div>
+        <div class="row-1">
+            <label>Member Type</label>
+            <select>
+                <option value="standard">Standard</option>
+                <option value="student">Student</option>
+                <option value="senior">Senior</option>
+            </select>
+        </div>
+        <div class="row-1">
+            <label>Username</label>
+            <input/>
+        </div>
+        <div class="row-1">
+            <label>Username</label>
+            <input type="password"/>
+        </div>
+        <div>
+            <button>Register</button>
+        </div>
+    </form>
+</div>
+
