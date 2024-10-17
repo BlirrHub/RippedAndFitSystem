@@ -1,54 +1,62 @@
-﻿@{
+﻿@using RippedAndFit.Domain.Enums
+
+@model RippedAndFit.Domain.Entities.NewMember;
+
+@{
     ViewData["Title"] = "Registration";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    
 }
 
 <h1>Register Member</h1>
 
 <div>
-    <form action="/" method="post">
+    <form method="post">
         <div class="row-1">
             <label>Name</label>
-            <input placeholder="First Name"/>
-            <input placeholder="Last Name" />
-            <input placeholder="Suffix"/>
+            <input asp-for="MemberDetails.FirstName" placeholder="First Name" />
+            <input asp-for="MemberDetails.LastName" placeholder="Last Name" />
         </div>
-        <div class="row-1">
+        <div class="row-2">
             <label>Sex</label>
             <div>
-                <input type="radio" />
-                <label>Male</label>
-                <input type="radio" />
-                <label>Female</label>
+                <input asp-for="MemberDetails.Gender" value="Male" type="radio" name="gender" id="male"/>
+                <label for="male">Male</label>
+                <input asp-for="MemberDetails.Gender" value="Female" type="radio" name="gender" id="female"/>
+                <label for="female">Female</label>
             </div>
             <label>Date of Birth</label>
-            <input placeholder="MM-DD-YYYY" type="date"/>
+            <input asp-for="MemberDetails.DateOfBirth" placeholder="MM-DD-YYYY" type="date" />
         </div>
-        <div class="row-1">
+        <div class="row-3">
             <label>Phone</label>
-            <input placeholder="" />
+            <input asp-for="MemberDetails.PhoneNumber" placeholder="" />
             <label>Age</label>
-            <input placeholder="" />
+            <input asp-for="MemberDetails.Age" placeholder="" />
         </div>
-        <div class="row-1">
+        <div>
+            <label>Email</label>
+            <input asp-for="MemberDetails.Email"/>
+        </div>
+        <div class="row-5">
             <label>Member Type</label>
-            <select>
-                <option value="standard">Standard</option>
-                <option value="student">Student</option>
-                <option value="senior">Senior</option>
+            <select asp-for="MemberDetails.MemberType">
+                @foreach (var memberType in Enum.GetValues(typeof(MemberType)))
+                {
+                    <option value="@memberType">@memberType</option>
+                }
             </select>
         </div>
         <div class="row-1">
             <label>Username</label>
-            <input/>
+            <input asp-for="User.Username" />
         </div>
         <div class="row-1">
-            <label>Username</label>
-            <input type="password"/>
+            <label>Password</label>
+            <input asp-for="User.Password" type="password" />
         </div>
         <div>
-            <button>Register</button>
+            <button type="submit">Register</button>
         </div>
     </form>
 </div>
-

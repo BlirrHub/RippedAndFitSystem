@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RippedAndFit.Domain.Entities;
 using RippedAndFit.Domain.Enums;
 using RippedAndFit.Infrastructure.Data;
 using RippedAndFit.Web.Models;
@@ -40,6 +41,26 @@ namespace RippedAndFit.Web.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(Users user)
+        {
+            var users = _db.Users.ToList();
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (users[i].Username == user.Username && users[i].Password == user.Password)
+                {
+                    user.Role = users[i].Role;
+                    if(user.Role == Roles.Admin)
+                    {
+                        return RedirectToAction("Dashboard", "Admin");
+                    }
+                }
+            }
+
+            return RedirectToAction("Login");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

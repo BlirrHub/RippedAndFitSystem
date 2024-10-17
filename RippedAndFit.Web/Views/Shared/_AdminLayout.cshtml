@@ -3,44 +3,40 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RippedAndFit.Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/RippedAndFit.Web.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - Ripped And Fit</title>
 </head>
 <body>
     <header>
         <h1>RIPPED AND FIT GYM</h1>
     </header>
-    <nav>
-        <div>
-            <ul>
-                <li>
-                    <a asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
-                </li>
-                <li>
-                    <a asp-controller="Admin" asp-action="Registration">Registration</a>
-                </li>
-                <li>
-                    <a asp-controller="Admin" asp-action="Staffs">Staffs</a>
-                </li>
-                <li>
-                    <a asp-controller="Admin" asp-action="Members">Members</a>
-                </li>
-                <li>
-                    <a asp-controller="Admin" asp-action="Logs">Logs</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div>
+        <nav>
+            <div>
+                <ul>
+                    <li>
+                        <a asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="Registration">Registration</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="Staffs">Staffs</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="Members">Members</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="Logs">Logs</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div>
+        <main role="main">
             @RenderBody()
         </main>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html> 
