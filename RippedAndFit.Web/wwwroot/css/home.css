@@ -1,10 +1,7 @@
+/*HEADER AND NAVBAR*/
 
 .hide-desktop {
-
-}
-
-.hide-mobile {
-
+    display: block;
 }
 
 body {
@@ -13,10 +10,16 @@ body {
 }
 
 header {
-    background-color: #54576f;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    z-index: 100;
+    background: #54576f;
+    height: 60px;
+}
+
+.header-left a img {
+    padding: 1em;
+    width: 75%;
 }
 
 nav ul {
@@ -28,108 +31,131 @@ nav ul {
     height: 100vh;
     margin: 0;
     list-style: none;
+    width: 250px;
     text-align: right;
-    padding: 0 1em 1em 1em;
+    padding: 2em;
     transform: translateX(100%);
     transition: transform 0.5s ease-in-out;
-    li {
-        margin: 0.5em 0;
-
-        a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2rem;
-
-            &:nth-of-type(1) {
-                margin-bottom: 1em;
-            }
-            
-            &:hover {
-                color: #ed563b;
-                text-decoration: none;
-            }
-        }
-    }
 }
 
-.gym-logo {
-    width: 75%;
-    margin: 1em;
+nav ul li {
+    margin: 2em 0;
 }
 
-.menu-btn {
-    width: 70%;
+nav ul li a img{
+    width: 15%;
 }
 
 nav div a img {
-    margin-top: 1em;
+
+    width: 100%;
 }
 
-.open {
-    transform: translateX(0%);
+nav ul li:nth-of-type(1) {
+    margin-top: 0;
+    margin-bottom: 3em;
 }
 
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 2.4rem;
+}
+
+nav ul li a:hover {
+    color: #ed563b;
+}
+
+nav ul.open {
+    transform: translateX(0);
+}
+
+/*HOME TAB*/
 .home-background {
-    position: relative;
-    background-image: url(../image/png/Background-1.png);
+    background-image: url(../image/Background-1.png);
     background-size: cover;
     background-position: center;
     height: 100vh;
-    z-index: 1;
-}
-
-    .home-background::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 2;
-    }
-
-.home-content {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    color: white;
-    padding-top: 6em;
 }
 
 .home-content p{
     text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-    color: white;
     margin-top: 0;
-    padding-top: 8em;
+    padding-top: 10em;
+    color: white;
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.sub-head {
+    display: block;
+    margin: 0 auto;
+    font-size: 2.5rem;
+}
+
+.primary-cta {
+    color: white;
+    background: #ed563b;
+    padding: 0.5em;
+    width: 250px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    border-radius: .5em;
+    margin: 0 auto;
+    font-size: 1.2rem;
+}
+
+@media (min-width: 1080px) {
+    .hide-desktop {
+        display: none;
+    }
+
+    header {
+        height: 60px;
+    }
+
+    .header-left a img {
+        width: 115%;
+    }
+
+    .home-content p {
+        padding-top: 4em;
+        font-size: 3rem;
+    }
 
     .sub-head {
         display: block;
         margin: 0 auto;
-        font-size: 2.75rem;
+        font-size: 5rem;
+    }
+
+    .header-login-btn {
+        padding: 0.2em 1.2em;
+        background: #ed563b;
+        border-radius: .6em;
+    }
+
+    nav ul {
+        padding: 0 1em;
+        margin: 0;
+        position: unset;
+        background: none;
+        display: flex;
+        gap: 3em;
+        height: auto;
+        width: auto;
+        transform: translateX(0%);
+    }
+
+    nav ul li a {
+        font-size: 1.6rem;
+    }
+
+    .primary-cta {
+        padding: .5em;
+        width: 300px;
+        font-size: 1.5rem;
     }
 }
-
-a.primary-cta {
-    background: #ed563b;
-    padding: .5em;
-    width: 300px;
-    box-sizing: border-box;
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.3rem;
-    font-family: 'Poppins';
-    color: white;
-    border-radius: .5em;
-    margin: 0 auto;
-}
-
-
-
-
-

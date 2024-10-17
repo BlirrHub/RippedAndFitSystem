@@ -7,33 +7,33 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="~/css/home.css" />
+    <link rel="stylesheet" href="@Url.Content("~/css/home.css")" />
 </head>
 <body>
     <div class="wrap">
         <header>
             <div class="header-left">
                 <a asp-controller="Home" asp-action="Home">
-                    <img class="gym-logo" src="~/image/Logo.svg" alt="Ripped and Fit Logo" />
+                    <img class="gym-logo" src="@Url.Content("~/image/Logo.svg")" alt="Ripped and Fit Logo" />
                 </a>
             </div>
 
-            <nav class="open">
+            <nav>
                 <div>
                     <a href="#" class="menu-open hide-desktop">
-                        <img class="menu-btn" src="~/image/Menu-Icon.svg" alt="Open Menu" />
+                        <img src="@Url.Content("~/image/Menu-Icon.svg")" alt="Open Menu" />
                     </a>
                 </div>
                 <ul>
-                    <li>
-                        <a href="#" class="menu-close hide-mobile">
-                            <img class="menu-btn" src="~/image/Close-Icon.svg" alt="Close Menu" />
+                    <li class="hide-desktop">
+                        <a href="#" class="menu-close">
+                            <img src="@Url.Content("~/image/Close-Icon.svg")" alt="Close Menu" />
                         </a>
                     </li>
                     <li><a asp-controller="Home" asp-action="Home">Home</a></li>
                     <li><a asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-controller="Home" asp-action="Contact">Contact</a> </li>
-                    <li><a asp-controller="Home" asp-action="Login" class="Header-Login-Btn">Login</a></li>
+                    <li><a asp-controller="Home" asp-action="Login" class="header-login-btn">Login</a></li>
                 </ul>
             </nav>
         </header> 
@@ -49,14 +49,17 @@
         const menuBtn = document.querySelector('.menu-open');
         const closeBtn = document.querySelector('.menu-close');
 
-        menuBtn.addEventListener('click', () => {
-            menu.classList.add('open')
-        })
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                menu.classList.add('open');
+            });
+        }
 
-        closeBtn.addEventListener('click', () => {
-            menu.classList.remove('open')
-        })
-
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                menu.classList.remove('open');
+            });
+        }
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
