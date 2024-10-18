@@ -57,6 +57,11 @@ namespace RippedAndFit.Web.Controllers
                     {
                         return RedirectToAction("Dashboard", "Admin");
                     }
+
+                    if (user.Role == Roles.FrontDesk || user.Role == Roles.Trainer)
+                    {
+                        return RedirectToAction("Dashboard", "Staff");
+                    }
                 }
             }
 

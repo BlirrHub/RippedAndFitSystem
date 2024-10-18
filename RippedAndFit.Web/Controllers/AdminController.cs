@@ -55,5 +55,20 @@ namespace RippedAndFit.Web.Controllers
             _db.SaveChanges();
             return RedirectToAction("Registraion", "Admin");
         }
+
+        public IActionResult Staffs()
+        {
+            return View();
+        }
+
+        public IActionResult Members()
+        {
+            return View();
+        }
+
+        public IActionResult Logs()
+        {
+            return View();
+        }
     }
 }
