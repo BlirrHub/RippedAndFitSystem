@@ -28,4 +28,11 @@
     <Folder Include="Views\Member\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\css\header.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

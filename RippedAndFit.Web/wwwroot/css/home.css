@@ -1,82 +1,3 @@
-/*HEADER AND NAVBAR*/
-
-.hide-desktop {
-    display: block;
-}
-
-.menu-open {
-    margin-right: 20px
-}
-
-body {
-    margin: 0;
-    font-family: 'Poppins';
-    overflow: hidden;
-}
-
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #54576f;
-    height: 60px;
-}
-
-.header-left a img {
-    padding: 1em;
-    width: 75%;
-}
-
-nav ul {
-    background: #54576f;
-    position: fixed;
-    z-index: 999;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    margin: 0;
-    list-style: none;
-    width: 250px;
-    text-align: center;
-    padding: 2em;
-    transform: translateX(100%);
-    transition: transform 0.5s ease-in-out;
-}
-
-nav ul li {
-    margin: 2em 0;
-}
-
-nav ul li a img{
-    width: 15%;
-}
-
-nav div a img {
-
-    width: 100%;
-}
-
-nav ul li:nth-of-type(1) {
-    margin-top: 0;
-    margin-bottom: 3em;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 2.4rem;
-}
-
-nav ul li a:hover {
-    color: #ed563b;
-}
-
-nav ul.open {
-    transform: translateX(0);
-}
-
-/*HOME TAB*/
 .home-background {
     background-image: url(../image/Background-1.png);
     background-size: cover;
@@ -84,13 +5,16 @@ nav ul.open {
     height: 100vh;
 }
 
+/*Home*/
 .home-content p{
     text-align: center;
     margin-top: 0;
-    padding-top: 10em;
+    padding-top: 11em;
     color: white;
     font-weight: bold;
-    font-size: 1.6rem;
+    font-size: 1.75rem;
+    margin-bottom: 1em;
+    line-height: 1.5em;
 }
 
 .sub-head {
@@ -103,7 +27,7 @@ nav ul.open {
     color: white;
     background: #ed563b;
     padding: 0.5em;
-    width: 250px;
+    width: 200px;
     display: block;
     text-align: center;
     text-decoration: none;
@@ -112,28 +36,201 @@ nav ul.open {
     font-size: 1.2rem;
 }
 
-.header-login-btn {
-    padding: 0.2em 1.2em;
-    background: #ed563b;
-    border-radius: .6em;
+/*Login*/
+.slogan {
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    height: 55%;
+    padding: 0.5em;
+    color: white;
+    line-height: 2.25em;
 }
 
-@media (min-width: 1080px) {
-    .hide-desktop {
-        display: none;
-    }
+.slogan h1 {
+    padding-top: 3em;
+    font-size: 1.5rem;
+    margin:0;
+    align-items: center
+}
 
-    header {
-        height: 60px;
-    }
+.slogan h1 span {
+    font-size: 2.5rem;
+}
 
-    .header-left a img {
-        width: 115%;
-    }
+.slogan img {
+    width: auto;
+    height: auto;
+    max-width: 400px;
+}
+
+.login-sub-head {
+    display: block;
+}
+
+.slogan h1 {
+    margin-top: 0;
+}
+
+.login-form {
+    text-align: center;
+    background: #29292e;
+    position: fixed;
+    color: white;
+    bottom: 0;
+    width: 100%;
+    height: 45%;
+    padding: 0.5em;
+    border-radius: 12px;
+}
+
+.login-form h1 {
+    margin: 0;
+    margin-top: .5em;
+    font-size: 4rem;
+    line-height: .75em;
+}
+
+.login-form h1 span {
+    display: block;
+    margin: 0;
+    font-weight: normal;
+    font-size: 1.2rem;
+    margin-bottom: 0.75em;
+}
+
+.login-form input {
+    width: 60%;
+    padding: 0.75em;
+    font-size: 1.2rem;
+    border-radius: 12px;
+}
+
+.username-field {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.75em;
+}
+
+.password-field {
+    display: block;
+    margin: 0 auto;
+}
+
+.login-form .utility {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-top: 0;
+    line-height: 0;
+}
+
+.login-form .utility .spacer {
+    background: white;
+}
+
+.login-form .utility .remember-me {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.login-form .utility a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-form .utility .remember-me input {
+    margin-right: 0.3em;
+}
+
+.login-form button {
+    color: white;
+    border: none;
+    background: #ed563b;
+    padding: 1em;
+    margin: 2em auto;
+    width: 50%;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+@media (min-width: 668px) {
+    /*Home*/
 
     .home-content p {
-        padding-top: 4em;
+        padding-top: 7.5em;
+        line-height: 1.5em;
+        font-size: 2.5rem;
+        margin-bottom: 0.5em;
+    }
+
+    .sub-head {
+        display: block;
+        margin: 0 auto;
+        font-size: 3.75rem;
+    }
+
+    .primary-cta {
+        padding: .5em;
+        width: 250px;
+        font-size: 1.5rem;
+    }
+
+    /*Login*/
+    .slogan {
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        height: calc(100vh - 60px);
+        top: 0;
+        width: 60%;
+        color: white;
+        line-height: 3.25em;
+    }
+
+    .slogan h1 {
+        font-size: 2rem;
+        align-items: center
+    }
+
+    .slogan h1 span {
+        font-size: 3.25rem;
+    }
+
+    .slogan img {
+        width: auto;
+        height: auto;
+        max-width: 550px;
+    }
+
+    .login-form h1 {
+        font-size: 5rem;
+    }
+
+    .login-form {
+        justify-content: center;
+        align-content: center;
+        position: fixed;
+        height: calc(100vh - 60px);
+        top: 60px;
+        right: 0;
+        width: 40%;
+    }
+
+    .login-form button {
+        font-size: 1.25rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    /*Home*/
+
+    .home-content p {
+        padding-top: 6em;
         font-size: 3rem;
+        line-height: 1.5em;
     }
 
     .sub-head {
@@ -142,31 +239,54 @@ nav ul.open {
         font-size: 5rem;
     }
 
-    .header-login-btn {
-        padding: 0.2em 1.2em;
-        background: #ed563b;
-        border-radius: .6em;
-    }
-
-    nav ul {
-        padding: 0 1em;
-        margin: 0;
-        position: unset;
-        background: none;
-        display: flex;
-        gap: 3em;
-        height: auto;
-        width: auto;
-        transform: translateX(0%);
-    }
-
-    nav ul li a {
-        font-size: 1.6rem;
-    }
-
     .primary-cta {
         padding: .5em;
         width: 300px;
         font-size: 1.5rem;
+    }
+
+    /*Login*/
+    .slogan {
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        height: calc(100vh - 60px);
+        top: 0;
+        width: 60%;
+        color: white;
+        line-height: 4.25em;
+    }
+
+    .slogan h1 {
+        font-size: 3rem;
+        align-items: center
+    }
+
+    .slogan h1 span {
+        font-size: 4.25rem;
+    }
+
+    .slogan img {
+        width: auto;
+        height: auto;
+        max-width: 700px;
+    }
+
+    .login-form h1 {
+        font-size: 5rem;
+    }
+
+    .login-form {
+        justify-content: center;
+        align-content: center;
+        position: fixed;
+        height: calc(100vh - 60px);
+        top: 60px;
+        right: 0;
+        width: 40%;
+    }
+
+    .login-form button {
+        font-size: 1.25rem;
     }
 }
