@@ -1,8 +1,55 @@
-﻿@{
+﻿@using RippedAndFit.Domain.Entities
+@using RippedAndFit.Domain.Enums;
+
+@{
     ViewData["Title"] = "Staffs";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>
-    Staffs
-</h1>
+@model RippedAndFit.Web.Models.StaffsModel;
+
+<div>
+    <div>
+        <h1>
+            Staffs
+        </h1>
+        <div class="staff-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        if (user.Role == Roles.Admin || user.Role == Roles.FrontDesk || user.Role == Roles.Trainer)
+                        {
+                            StaffDetails? staff = Model.StaffDetails.FirstOrDefault(s => s.StaffId == user.Id);
+
+                            if(staff != null)
+                            {
+                                <tr>
+                                    <td>@user.Id</td>
+                                    <td>@staff.FirstName @staff.LastName</td>
+                                    <td>@user.Role</td>
+                                    <td>@staff.Email</td>
+                                    <td>
+                                        <div role="group">
+                                            <a><i></i>Edit</a>
+                                            <a><i></i>Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

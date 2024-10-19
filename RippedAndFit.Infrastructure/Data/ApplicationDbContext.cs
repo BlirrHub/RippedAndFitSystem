@@ -31,7 +31,7 @@ public class ApplicationDbContext : DbContext
             {
                 Id = 2,
                 Username = "trainer",
-                Password = "password",
+                Password = "trainer",
                 Role = Roles.Trainer
             },
 
@@ -39,7 +39,7 @@ public class ApplicationDbContext : DbContext
             {
                 Id = 3,
                 Username = "frontdesk",
-                Password = "password",
+                Password = "frontdesk",
                 Role = Roles.FrontDesk
             },
 
@@ -47,8 +47,66 @@ public class ApplicationDbContext : DbContext
             {
                 Id = 4,
                 Username = "member",
-                Password = "password",
+                Password = "member",
                 Role = Roles.Member
+            }
+        );
+
+        modelBuilder.Entity<StaffDetails>().HasData(
+            new StaffDetails
+            {
+                Id = 1,
+                FirstName = "",
+                LastName = "",
+                DateOfBirth = new DateOnly(2000, 1, 1),
+                Age = 0,
+                Gender = Genders.Male,
+                Email = "",
+                PhoneNumber = "",
+                StaffId = 1
+            },
+
+            new StaffDetails
+            {
+                Id = 2,
+                FirstName = "frontdesk",
+                LastName = "",
+                DateOfBirth = new DateOnly(2000, 1, 1),
+                Age = 0,
+                Gender = Genders.Male,
+                Email = "",
+                PhoneNumber = "",
+                StaffId = 2
+            },
+
+            new StaffDetails
+            {
+                Id = 3,
+                FirstName = "trainer",
+                LastName = "",
+                DateOfBirth = new DateOnly(2000, 1, 1),
+                Age = 0,
+                Gender = Genders.Male,
+                Email = "",
+                PhoneNumber = "",
+                StaffId = 3
+            }
+        );
+
+        modelBuilder.Entity<MemberDetails>().HasData(
+            new MemberDetails
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Cruz",
+                DateOfBirth = new DateOnly(2000, 1, 1),
+                Age = 24,
+                Gender = Genders.Male,
+                Email = "juancruz@gmail.com",
+                PhoneNumber = "09023517263",
+                MemberType = MemberType.Standard,
+                MembershipStatus = MembershipStatus.Active,
+                MemberId = 4
             }
         );
     }

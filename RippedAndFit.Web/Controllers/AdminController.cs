@@ -2,6 +2,7 @@
 using RippedAndFit.Domain.Entities;
 using RippedAndFit.Domain.Enums;
 using RippedAndFit.Infrastructure.Data;
+using RippedAndFit.Web.Models;
 
 namespace RippedAndFit.Web.Controllers
 {
@@ -70,14 +71,51 @@ namespace RippedAndFit.Web.Controllers
 
         public IActionResult Staffs()
         {
+            var users = _db.Users.ToList();
+            var staffDetails = _db.StaffDetails.ToList();
+
+            var staffs = new StaffsModel
+            {
+                Users = users,
+                StaffDetails = staffDetails
+            };
+
+            return View(staffs);
+        }
+
+        public IActionResult UpdateStaff()
+        {
+            return View();
+        }
+
+        public IActionResult AddStaff()
+        {
             return View();
         }
 
         public IActionResult Members()
         {
-            var members = _db.MemberDetails.ToList();
+            var users = _db.Users.ToList();
+            var memberDetails = _db.MemberDetails.ToList();
+
+            var members = new MembersModel
+            {
+                Users = users,
+                MemberDetails = memberDetails
+            };
 
             return View(members);
+        }
+
+        public IActionResult UpdateMember(int memberId)
+        {
+            Users? user = _db.Users.FirstOrDefault(x => x.Id == memberId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
         }
 
         public IActionResult Logs()

@@ -1,38 +1,57 @@
-﻿@{
+﻿@using RippedAndFit.Domain.Entities
+@using RippedAndFit.Domain.Enums;
+
+@{
     ViewData["Title"] = "Members";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-@model IEnumerable<RippedAndFit.Domain.Entities.MemberDetails>;
+@model RippedAndFit.Web.Models.MembersModel;
 
 <div>
     <div>
         <h1>
             Members
         </h1>
-    </div>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach(var member in Model)
-                {
+        <div class="member-table">
+            <table>
+                <thead>
                     <tr>
-                        <td>@member.FirstName @member.LastName</td>
-                        <td>@member.Email</td>
-                        <td>@member.MemberType</td>
-                        <td>@member.MembershipStatus</td>
+                        <td>ID</td>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        if(user.Role == Roles.Member)
+                        {
+                            MemberDetails? member = Model.MemberDetails.FirstOrDefault(s => s.MemberId == user.Id);
+
+                            if(member != null)
+                            {
+                                <tr>
+                                    <td>@user.Id</td>
+                                    <td>@member.FirstName @member.LastName</td>
+                                    <td>@member.Email</td>
+                                    <td>@member.MemberType</td>
+                                    <td>@member.MembershipStatus</td>
+                                    <td>
+                                        <div role="group">
+                                            <a><i></i>Edit</a>
+                                            <a><i></i>Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
