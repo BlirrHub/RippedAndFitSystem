@@ -39,8 +39,8 @@
                                     <td>@staff.Email</td>
                                     <td>
                                         <div role="group">
-                                            <a><i></i>Edit</a>
-                                            <a><i></i>Delete</a>
+                                            <a asp-controller="Admin" asp-action="UpdateStaff" asp-route-staffId="@user.Id"><i class="bi bi-pencil-square"></i>Edit</a>
+                                            <a asp-route-staffId="@user.Id"><i class="bi bi-trash"></i>Delete</a>
                                         </div>
                                     </td>
                                 </tr>

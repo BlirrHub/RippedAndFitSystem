@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RippedAndFit.Domain.Entities;
 using RippedAndFit.Domain.Enums;
 using RippedAndFit.Infrastructure.Data;
@@ -26,9 +28,9 @@ namespace RippedAndFit.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(NewMember member)
+        public async Task <IActionResult> Registration(NewMember member)
         {
-            bool userExist = _db.Users.FirstOrDefault(u => u.Username == member.User.Username) != null;
+            bool userExist = await _db.Users.FirstOrDefaultAsync(u => u.Username == member.User.Username) != null;
 
             if (userExist)
             {
@@ -38,10 +40,12 @@ namespace RippedAndFit.Web.Controllers
 
             if (ModelState.IsValid && !userExist)
             {
+                var passwordHasher = new PasswordHasher<Users>();
+
                 var user = new Users
                 {
                     Username = member.User.Username,
-                    Password = member.User.Password,
+                    Password = passwordHasher.HashPassword(null, member.User.Password),
                     Role = Roles.Member
                 };
 
@@ -69,34 +73,10 @@ namespace RippedAndFit.Web.Controllers
             return View();
         }
 
-        public IActionResult Staffs()
+        public async Task<IActionResult> Members()
         {
-            var users = _db.Users.ToList();
-            var staffDetails = _db.StaffDetails.ToList();
-
-            var staffs = new StaffsModel
-            {
-                Users = users,
-                StaffDetails = staffDetails
-            };
-
-            return View(staffs);
-        }
-
-        public IActionResult UpdateStaff()
-        {
-            return View();
-        }
-
-        public IActionResult AddStaff()
-        {
-            return View();
-        }
-
-        public IActionResult Members()
-        {
-            var users = _db.Users.ToList();
-            var memberDetails = _db.MemberDetails.ToList();
+            var users = await _db.Users.ToListAsync();
+            var memberDetails = await _db.MemberDetails.ToListAsync();
 
             var members = new MembersModel
             {
@@ -107,9 +87,9 @@ namespace RippedAndFit.Web.Controllers
             return View(members);
         }
 
-        public IActionResult UpdateMember(int memberId)
+        public async Task<IActionResult> UpdateMember(int memberId)
         {
-            Users? user = _db.Users.FirstOrDefault(x => x.Id == memberId);
+            Users? user = await _db.Users.FirstOrDefaultAsync(x => x.Id == memberId);
             if (user == null)
             {
                 return NotFound();

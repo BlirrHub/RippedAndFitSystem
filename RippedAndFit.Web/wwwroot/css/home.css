@@ -37,6 +37,11 @@
 }
 
 /*Login*/
+span {
+    color: #ff4747;
+    font-size: 1rem;
+}
+
 .slogan {
     text-align: center;
     position: fixed;
@@ -119,12 +124,11 @@
 .username-field {
     display: block;
     margin: 0 auto;
-    margin-bottom: 0.75em;
 }
 
 .password-field {
     display: block;
-    margin: 0 auto;
+    margin: .5em auto 0 auto;
 }
 
 .login-form .utility {

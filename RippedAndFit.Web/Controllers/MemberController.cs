@@ -16,5 +16,25 @@ namespace RippedAndFit.Web.Controllers
         {
             return View();
         }
+
+        public IActionResult Notification()
+        {
+            return View();
+        }
+
+        public IActionResult History()
+        {
+            return View();
+        }
+
+        public IActionResult Renew()
+        {
+            return View();
+        }
+
+        public IActionResult Profile()
+        {
+            return View();
+        }
     }
 }

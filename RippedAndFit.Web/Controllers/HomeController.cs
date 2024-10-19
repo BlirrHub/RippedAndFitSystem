@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RippedAndFit.Domain.Entities;
 using RippedAndFit.Domain.Enums;
 using RippedAndFit.Infrastructure.Data;
@@ -37,35 +39,51 @@ namespace RippedAndFit.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(Users user)
+        public async Task<IActionResult> Login(Users user)
         {
-            var users = _db.Users.ToList();
-
-            for (int i = 0; i < users.Count; i++)
+            if (!ModelState.IsValid)
             {
-                if (users[i].Username.ToLower() == user.Username.ToLower() && users[i].Password == user.Password)
-                {
-                    HttpContext.Session.SetString("UserRole", users[i].Role.ToString());
-
-                    if (users[i].Role == Roles.Admin)
-                    {
-                        return RedirectToAction("Dashboard", "Administration");
-                    }
-
-                    if (users[i].Role == Roles.FrontDesk || users[i].Role == Roles.Trainer)
-                    {
-                        return RedirectToAction("Dashboard", "Administration");
-                    }
-
-                    if (users[i].Role == Roles.Member)
-                    {
-                        return RedirectToAction("Dashboard", "Member");
-                    }
-                }
+                return View(user);
             }
 
-            return RedirectToAction("Login");
+            var foundUser = await _db.Users.FirstOrDefaultAsync(u => u.Username.ToLower() == user.Username.ToLower());
+
+            if (foundUser == null)
+            {
+                ModelState.AddModelError("username", "Username does not exist");
+                return View(user);
+            }
+
+            var passwordHasher = new PasswordHasher<Users>();
+
+            var result = passwordHasher.VerifyHashedPassword(foundUser, foundUser.Password, user.Password);
+
+            if (result != PasswordVerificationResult.Success)
+            {
+                ModelState.AddModelError("password", "Incorrect password");
+                return View(user);
+            }
+
+            HttpContext.Session.SetString("UserRole", foundUser.Role.ToString());
+
+            if (foundUser.Role == Roles.Admin)
+            {
+                return RedirectToAction("Dashboard", "Administration");
+            }
+
+            if (foundUser.Role == Roles.FrontDesk || foundUser.Role == Roles.Trainer)
+            {
+                return RedirectToAction("Dashboard", "Administration");
+            }
+
+            if (foundUser.Role == Roles.Member)
+            {
+                return RedirectToAction("Dashboard", "Member");
+            }
+
+            return View(user);
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

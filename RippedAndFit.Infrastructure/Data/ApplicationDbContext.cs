@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RippedAndFit.Domain.Entities;
 using RippedAndFit.Domain.Enums;
 
@@ -18,12 +19,14 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         //base.OnModelCreating(modelBuilder);
+        var hasher = new PasswordHasher<Users>();
+
         modelBuilder.Entity<Users>().HasData(
             new Users
             {
                 Id = 1,
                 Username = "admin",
-                Password = "admin",
+                Password = hasher.HashPassword(null, "admin"),
                 Role = Roles.Admin
             },
 
@@ -31,7 +34,7 @@ public class ApplicationDbContext : DbContext
             {
                 Id = 2,
                 Username = "trainer",
-                Password = "trainer",
+                Password = hasher.HashPassword(null, "trainer"),
                 Role = Roles.Trainer
             },
 
@@ -39,7 +42,7 @@ public class ApplicationDbContext : DbContext
             {
                 Id = 3,
                 Username = "frontdesk",
-                Password = "frontdesk",
+                Password = hasher.HashPassword(null, "frontdesk"),
                 Role = Roles.FrontDesk
             },
 
@@ -47,7 +50,7 @@ public class ApplicationDbContext : DbContext
             {
                 Id = 4,
                 Username = "member",
-                Password = "member",
+                Password = hasher.HashPassword(null, "member"),
                 Role = Roles.Member
             }
         );
