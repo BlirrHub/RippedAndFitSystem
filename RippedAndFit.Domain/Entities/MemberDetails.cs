@@ -9,9 +9,11 @@ public class MemberDetails
     [Key]
     public int Id { get; set; }
     [Required]
+    [Display(Name = "First Name")]
     public required string FirstName { get; set; }
     public string? LastName { get; set; }
     [Required]
+    [Display(Name = "Date of Birth")]
     public required DateOnly DateOfBirth { get; set; }
     [Required]
     public required int Age { get; set; }

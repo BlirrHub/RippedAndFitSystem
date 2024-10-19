@@ -1,3 +1,25 @@
-﻿@{
-    Layout = "_AdminLayout";
+﻿@using RippedAndFit.Domain.Enums
+
+@{
+    var userRole = Context.Session.GetString("UserRole");
+
+    if (!string.IsNullOrEmpty(userRole))
+    {
+        if (userRole == Roles.Admin.ToString())
+        {
+            Layout = "_AdminLayout";
+        }
+        else if (userRole == Roles.FrontDesk.ToString() || userRole == Roles.Trainer.ToString())
+        {
+            Layout = "_AdministrationLayout";
+        }
+        else if (userRole == Roles.Member.ToString())
+        {
+            Layout = "_MemberLayout";
+        }
+    }
+    else
+    {
+        Layout = "_HomeLayout";
+    }
 }

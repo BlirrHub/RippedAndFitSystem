@@ -43,16 +43,18 @@ namespace RippedAndFit.Web.Controllers
 
             for (int i = 0; i < users.Count; i++)
             {
-                if (users[i].Username == user.Username && users[i].Password == user.Password)
+                if (users[i].Username.ToLower() == user.Username.ToLower() && users[i].Password == user.Password)
                 {
-                    if(users[i].Role == Roles.Admin)
+                    HttpContext.Session.SetString("UserRole", users[i].Role.ToString());
+
+                    if (users[i].Role == Roles.Admin)
                     {
-                        return RedirectToAction("Dashboard", "Admin");
+                        return RedirectToAction("Dashboard", "Administration");
                     }
 
                     if (users[i].Role == Roles.FrontDesk || users[i].Role == Roles.Trainer)
                     {
-                        return RedirectToAction("Dashboard", "Staff");
+                        return RedirectToAction("Dashboard", "Administration");
                     }
 
                     if (users[i].Role == Roles.Member)

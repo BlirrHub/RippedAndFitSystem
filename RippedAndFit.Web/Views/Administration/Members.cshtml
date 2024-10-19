@@ -3,7 +3,6 @@
 
 @{
     ViewData["Title"] = "Members";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 @model RippedAndFit.Web.Models.MembersModel;
@@ -42,7 +41,7 @@
                                     <td>@member.MembershipStatus</td>
                                     <td>
                                         <div role="group">
-                                            <a><i></i>Edit</a>
+                                            <a asp-controller="Administration" asp-action="UpdateMember" asp-route-memberId="@user.Id"><i></i>Edit</a>
                                             <a><i></i>Delete</a>
                                         </div>
                                     </td>
