@@ -74,7 +74,6 @@
 
 .login-form {
     text-align: center;
-    background: #29292e;
     position: fixed;
     color: white;
     bottom: 0;
@@ -82,6 +81,17 @@
     height: 45%;
     padding: 0.5em;
     border-radius: 12px;
+}
+
+.login-form-bg {
+    background: #202020;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 45%;
+    padding: 0.5em;
+    border-radius: 12px;
+    opacity: 50%;
 }
 
 .login-form h1 {
@@ -210,6 +220,16 @@
     }
 
     .login-form {
+        justify-content: center;
+        align-content: center;
+        position: fixed;
+        height: calc(100vh - 60px);
+        top: 60px;
+        right: 0;
+        width: 40%;
+    }
+
+    .login-form-bg {
         justify-content: center;
         align-content: center;
         position: fixed;

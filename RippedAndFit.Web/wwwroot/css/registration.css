@@ -1,0 +1,70 @@
+﻿body {
+    background: #d8d8d8;
+    font-family: 'Poppins';
+}
+
+.registration-tab {
+    padding: 1em;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 2.5rem;;
+}
+
+h1 b {
+    color: #ed563b;
+}
+
+.registration-form {
+    background: #29292e;
+    color: white;
+    padding: 0.5em;
+    font-size: 1.25rem;
+    border-radius: 12px;
+}
+
+.registration-form div {
+    display: flex;
+    flex-direction: column;
+    margin: .25em;
+}
+
+.registration-form div input {
+    padding: 0.5em;
+    border-radius: 5px;
+    font-size: 1.2rem;
+}
+
+.row-1 input {
+    margin-bottom: 0.5em;
+}
+
+select {
+    font-size: 1.2rem;
+    border-radius: 5px;
+    padding: .5em;
+}
+
+button {
+    margin-top: 1em;
+    border: none;
+    background: #ed563b;
+    color: white;
+    border-radius: 6px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.25em;
+}
+
+.gender {
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+}
+
+span {
+    color: #ff4747;
+    font-size: 1rem;
+}
+
