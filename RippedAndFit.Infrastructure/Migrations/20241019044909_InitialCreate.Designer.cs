@@ -11,8 +11,8 @@ using RippedAndFit.Infrastructure.Data;
 namespace RippedAndFit.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241015035110_RemoveStaffAndMemberChangedToUsers")]
-    partial class RemoveStaffAndMemberChangedToUsers
+    [Migration("20241019044909_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,22 @@ namespace RippedAndFit.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MemberDetails");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 24,
+                            DateOfBirth = new DateOnly(2000, 1, 1),
+                            Email = "juancruz@gmail.com",
+                            FirstName = "Juan",
+                            Gender = 0,
+                            LastName = "Cruz",
+                            MemberId = 4,
+                            MemberType = 0,
+                            MembershipStatus = 0,
+                            PhoneNumber = "09023517263"
+                        });
                 });
 
             modelBuilder.Entity("RippedAndFit.Domain.Entities.MemberHealthDetails", b =>
@@ -122,6 +138,44 @@ namespace RippedAndFit.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StaffDetails");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 0,
+                            DateOfBirth = new DateOnly(2000, 1, 1),
+                            Email = "",
+                            FirstName = "",
+                            Gender = 0,
+                            LastName = "",
+                            PhoneNumber = "",
+                            StaffId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 0,
+                            DateOfBirth = new DateOnly(2000, 1, 1),
+                            Email = "",
+                            FirstName = "frontdesk",
+                            Gender = 0,
+                            LastName = "",
+                            PhoneNumber = "",
+                            StaffId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Age = 0,
+                            DateOfBirth = new DateOnly(2000, 1, 1),
+                            Email = "",
+                            FirstName = "trainer",
+                            Gender = 0,
+                            LastName = "",
+                            PhoneNumber = "",
+                            StaffId = 3
+                        });
                 });
 
             modelBuilder.Entity("RippedAndFit.Domain.Entities.Users", b =>
@@ -156,21 +210,21 @@ namespace RippedAndFit.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            Password = "password",
+                            Password = "trainer",
                             Role = 2,
                             Username = "trainer"
                         },
                         new
                         {
                             Id = 3,
-                            Password = "password",
+                            Password = "frontdesk",
                             Role = 1,
                             Username = "frontdesk"
                         },
                         new
                         {
                             Id = 4,
-                            Password = "password",
+                            Password = "member",
                             Role = 3,
                             Username = "member"
                         });
