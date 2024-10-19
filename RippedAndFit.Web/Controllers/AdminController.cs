@@ -27,33 +27,45 @@ namespace RippedAndFit.Web.Controllers
         [HttpPost]
         public IActionResult Registration(NewMember member)
         {
-            var user = new Users 
-            { 
-                Id = _db.Users.ToList().Count + 1,
-                Username = member.User.Username, 
-                Password = member.User.Password, 
-                Role = Roles.Member 
-            };
+            bool userExist = _db.Users.FirstOrDefault(u => u.Username == member.User.Username) != null;
 
-            var memberDetails = new MemberDetails
+            if (userExist)
             {
-                Id = _db.MemberDetails.ToList().Count + 1,
-                FirstName = member.MemberDetails.FirstName,
-                LastName = member.MemberDetails.LastName,
-                DateOfBirth = member.MemberDetails.DateOfBirth,
-                Age = member.MemberDetails.Age,
-                Gender = member.MemberDetails.Gender,
-                Email = member.MemberDetails.Email,
-                PhoneNumber = member.MemberDetails.PhoneNumber,
-                MemberType = member.MemberDetails.MemberType,
-                MembershipStatus = MembershipStatus.Active,
-                MemberId = user.Id
-            };
+                ModelState.AddModelError("user.username", "Username already exist");
+                return View();
+            }
 
-            _db.Users.Add(user);
-            _db.MemberDetails.Add(memberDetails);
-            _db.SaveChanges();
-            return RedirectToAction("Registraion", "Admin");
+            if (ModelState.IsValid && !userExist)
+            {
+                var user = new Users
+                {
+                    Username = member.User.Username,
+                    Password = member.User.Password,
+                    Role = Roles.Member
+                };
+
+                _db.Users.Add(user);
+                _db.SaveChanges();
+
+                var memberDetails = new MemberDetails
+                {
+                    FirstName = member.MemberDetails.FirstName,
+                    LastName = member.MemberDetails.LastName,
+                    DateOfBirth = member.MemberDetails.DateOfBirth,
+                    Age = member.MemberDetails.Age,
+                    Gender = member.MemberDetails.Gender,
+                    Email = member.MemberDetails.Email,
+                    PhoneNumber = member.MemberDetails.PhoneNumber,
+                    MemberType = member.MemberDetails.MemberType,
+                    MembershipStatus = MembershipStatus.Active,
+                    MemberId = user.Id
+                };
+
+                _db.MemberDetails.Add(memberDetails);
+                _db.SaveChanges();
+            }
+
+            return View();
         }
 
         public IActionResult Staffs()
@@ -63,7 +75,9 @@ namespace RippedAndFit.Web.Controllers
 
         public IActionResult Members()
         {
-            return View();
+            var members = _db.MemberDetails.ToList();
+
+            return View(members);
         }
 
         public IActionResult Logs()

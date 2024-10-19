@@ -25,7 +25,7 @@
                 <label for="female">Female</label>
             </div>
             <label>Date of Birth</label>
-            <input asp-for="MemberDetails.DateOfBirth" placeholder="MM-DD-YYYY" type="date" />
+            <input asp-for="MemberDetails.DateOfBirth" placeholder="DD-MM-YYYY" type="date" />
         </div>
         <div class="row-3">
             <label>Phone</label>
@@ -36,6 +36,7 @@
         <div>
             <label>Email</label>
             <input asp-for="MemberDetails.Email"/>
+            <span asp-validation-for="MemberDetails.Email"></span>
         </div>
         <div class="row-5">
             <label>Member Type</label>
@@ -46,9 +47,11 @@
                 }
             </select>
         </div>
+        
         <div class="row-1">
             <label>Username</label>
             <input asp-for="User.Username" />
+            <span asp-validation-for="User.Username"></span>
         </div>
         <div class="row-1">
             <label>Password</label>

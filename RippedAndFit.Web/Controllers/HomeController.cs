@@ -45,15 +45,19 @@ namespace RippedAndFit.Web.Controllers
             {
                 if (users[i].Username == user.Username && users[i].Password == user.Password)
                 {
-                    user.Role = users[i].Role;
-                    if(user.Role == Roles.Admin)
+                    if(users[i].Role == Roles.Admin)
                     {
                         return RedirectToAction("Dashboard", "Admin");
                     }
 
-                    if (user.Role == Roles.FrontDesk || user.Role == Roles.Trainer)
+                    if (users[i].Role == Roles.FrontDesk || users[i].Role == Roles.Trainer)
                     {
                         return RedirectToAction("Dashboard", "Staff");
+                    }
+
+                    if (users[i].Role == Roles.Member)
+                    {
+                        return RedirectToAction("Dashboard", "Member");
                     }
                 }
             }

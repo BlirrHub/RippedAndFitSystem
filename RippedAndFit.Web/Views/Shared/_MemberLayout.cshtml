@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ripped And Fit</title>
+</head>
+<body>
+    <header>
+        <h1>RIPPED AND FIT GYM</h1>
+    </header>
+    <div>
+        <nav>
+            <div>
+                <ul>
+                    <li>
+                        <a asp-controller="Member" asp-action="Dashboard">Dashboard</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Member" asp-action="Notification">Notification</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Member" asp-action="History">History</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Member" asp-action="Renew">Renew</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div>
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html> 

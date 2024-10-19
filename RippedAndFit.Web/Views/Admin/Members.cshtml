@@ -3,6 +3,36 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>
-    Members
-</h1>
+@model IEnumerable<RippedAndFit.Domain.Entities.MemberDetails>;
+
+<div>
+    <div>
+        <h1>
+            Members
+        </h1>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var member in Model)
+                {
+                    <tr>
+                        <td>@member.FirstName @member.LastName</td>
+                        <td>@member.Email</td>
+                        <td>@member.MemberType</td>
+                        <td>@member.MembershipStatus</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
