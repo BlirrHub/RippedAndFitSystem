@@ -9,7 +9,7 @@
 
     <div class="slogan">
         <h1>
-            SHAPE YOUR <b style="color: #ed563b">BODY</b> <span class="login-sub-head">EASY WITH <b style="color: #ed563b">OUR GYM</b></span>
+            SHAPE YOUR <b style="color: #ed563b">BODY</b> <span class="login-sub-head" style="color:white">EASY WITH <b style="color: #ed563b">OUR GYM</b></span>
         </h1>
         <img src="~/image/Push-Up.svg" alt="Guy doing a Push-Up"/>
     </div>
@@ -19,11 +19,13 @@
     <div class="login-form">
         <form method="post">
             <div>
-                <h1>LOG IN<span>Let's track your goals</span></h1>
+                <h1>LOG IN<span style="color: white">Let's track your goals</span></h1>
             </div>
             <div>
                 <input asp-for="Username" placeholder="Username" class="username-field" />
+                <span asp-validation-for="Username"></span>
                 <input asp-for="Password" placeholder="Password" class="password-field" name="Password" type="password" />
+                <span asp-validation-for="Password"></span>
                 <div class="utility">
                     <div class="remember-me">
                         <input type="checkbox" name="RememberMe" value="" />
@@ -39,3 +41,9 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

@@ -41,8 +41,8 @@
                                     <td>@member.MembershipStatus</td>
                                     <td>
                                         <div role="group">
-                                            <a asp-controller="Administration" asp-action="UpdateMember" asp-route-memberId="@user.Id"><i></i>Edit</a>
-                                            <a><i></i>Delete</a>
+                                            <a asp-controller="Administration" asp-action="UpdateMember" asp-route-memberId="@user.Id"><i class="bi bi-pencil-square"></i>Edit</a>
+                                            <a asp-route-memberId="@user.Id"><i class="bi bi-trash"></i>Delete</a>
                                         </div>
                                     </td>
                                 </tr>

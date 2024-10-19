@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RippedAndFit.Domain.Entities;
 using RippedAndFit.Domain.Enums;
 using RippedAndFit.Infrastructure.Data;
@@ -15,10 +16,10 @@ namespace RippedAndFit.Web.Controllers
             _db = db;
         }
 
-        public IActionResult Staffs()
+        public async Task<IActionResult> Staffs()
         {
-            var users = _db.Users.ToList();
-            var staffDetails = _db.StaffDetails.ToList();
+            var users = await _db.Users.ToListAsync();
+            var staffDetails = await _db.StaffDetails.ToListAsync();
 
             var staffs = new StaffsModel
             {
