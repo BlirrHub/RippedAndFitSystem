@@ -1,7 +1,78 @@
-﻿@{
+﻿@using RippedAndFit.Domain.Enums;
+
+@model RippedAndFit.Web.Models.StaffModel;
+
+@{
     ViewData["Title"] = "Add Staff";
 }
 
-<h1>
-    ADD STAFF
-</h1>
+<div class="registration-tab">
+    <h1>Add <b>Staff</b></h1>
+
+    <div class="registration-form">
+        <form method="post">
+            <div class="row-1">
+                <label>Name</label>
+                <input asp-for="StaffDetails.FirstName" placeholder="First Name" />
+                <input asp-for="StaffDetails.LastName" placeholder="Last Name" />
+                <span asp-validation-for="StaffDetails.FirstName"></span>
+            </div>
+            <div class="row-2">
+                <label>Sex</label>
+                <div class="gender">
+                    <div class="male" style="display: block;">
+                        <input asp-for="StaffDetails.Gender" value="Male" type="radio" id="male" />
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="female" style="display: block;">
+                        <input asp-for="StaffDetails.Gender" value="Female" type="radio" id="female" />
+                        <label for="female">Female</label>
+                    </div>
+                    <span asp-validation-for="StaffDetails.Gender"></span>
+                </div>
+            </div>
+
+            <div class="row-3">
+                <label>Phone</label>
+                <input asp-for="StaffDetails.PhoneNumber" placeholder="" />
+            </div>
+            <div>
+                <label>Email</label>
+                <input asp-for="StaffDetails.Email" />
+                <span asp-validation-for="StaffDetails.Email"></span>
+            </div>
+            <div class="row-5">
+                <label>Role</label>
+                <select asp-for="User.Role">
+                    @foreach (var roles in Enum.GetValues(typeof(Roles)))
+                    {
+                        if (roles.ToString() != "Member")
+                        {
+                            <option value="@roles">@roles</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="row-6">
+                <label>Username</label>
+                <input asp-for="User.Username" />
+                <span asp-validation-for="User.Username"></span>
+            </div>
+            <div class="row-7">
+                <label>Password</label>
+                <input asp-for="User.Password" type="password" />
+                <span asp-validation-for="User.Password"></span>
+            </div>
+            <div>
+                <button type="submit">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
