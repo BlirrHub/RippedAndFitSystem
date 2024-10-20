@@ -1,8 +1,4 @@
-﻿.hide-mobile {
-    display: none;
-}
-
-.gym-icon {
+﻿.gym-icon {
     background-color: #29292e;
     text-align: center;
 }
@@ -93,10 +89,6 @@ body {
 }
 
 @media (min-width: 1080px) {
-    .hide-mobile {
-        display: block;
-    }
-
     .hide-desktop {
         display: none;
     }

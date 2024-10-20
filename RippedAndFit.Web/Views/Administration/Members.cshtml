@@ -16,10 +16,12 @@
             <table>
                 <thead>
                     <tr>
-                        <td>ID</td>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Type</th>
+                        <th>Membership Date</th>
+                        <th>Membership Expiration</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -38,11 +40,15 @@
                                     <td>@member.FirstName @member.LastName</td>
                                     <td>@member.Email</td>
                                     <td>@member.MemberType</td>
+                                    <td>@member.MembershipDate</td>
+                                    <td>@member.MembershipExpiration</td>
                                     <td>@member.MembershipStatus</td>
                                     <td>
                                         <div role="group">
                                             <a asp-controller="Administration" asp-action="UpdateMember" asp-route-memberId="@user.Id"><i class="bi bi-pencil-square"></i>Edit</a>
-                                            <a asp-route-memberId="@user.Id"><i class="bi bi-trash"></i>Delete</a>
+                                            <a href="javascript:void(0)" onclick="confirmDelete('@Url.Action("DeleteMember", "Administration", new { memberId = user.Id })')">
+                                                <i class="bi bi-trash"></i>Delete
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -54,3 +60,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function confirmDelete(url) {
+        if (confirm('Are you sure you want to delete this member?')) {
+            window.location.href = url;
+        }
+    }
+</script>

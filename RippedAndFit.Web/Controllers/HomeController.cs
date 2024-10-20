@@ -46,6 +46,7 @@ namespace RippedAndFit.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.RememberMe = rememberMe;
                 return View(user);
             }
 
@@ -54,6 +55,7 @@ namespace RippedAndFit.Web.Controllers
             if (foundUser == null)
             {
                 ModelState.AddModelError("Username", "Username does not exist");
+                ViewBag.RememberMe = rememberMe;
                 return View(user);
             }
 
@@ -64,6 +66,7 @@ namespace RippedAndFit.Web.Controllers
             if (result != PasswordVerificationResult.Success)
             {
                 ModelState.AddModelError("Password", "Incorrect password");
+                ViewBag.RememberMe = rememberMe;
                 return View(user);
             }
 
@@ -80,14 +83,24 @@ namespace RippedAndFit.Web.Controllers
             var authProperties = new AuthenticationProperties
             {
                 IsPersistent = rememberMe,
-                ExpiresUtc = rememberMe ? DateTimeOffset.UtcNow.AddDays(30) : null
+                ExpiresUtc = rememberMe ? DateTimeOffset.UtcNow.AddDays(30) : DateTimeOffset.UtcNow.AddMinutes(30),
+                AllowRefresh = true
             };
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
+
+            // Handle Remember Me
             if (rememberMe)
             {
                 Response.Cookies.Append("Username", foundUser.Username, new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddDays(30),
+                    HttpOnly = true,
+                    Secure = true
+                });
+
+                Response.Cookies.Append("RememberMe", "true", new CookieOptions
                 {
                     Expires = DateTimeOffset.UtcNow.AddDays(30),
                     HttpOnly = true,
@@ -101,8 +114,11 @@ namespace RippedAndFit.Web.Controllers
                 {
                     Response.Cookies.Delete("Username");
                 }
+                if (Request.Cookies.ContainsKey("RememberMe"))
+                {
+                    Response.Cookies.Delete("RememberMe");
+                }
             }
-
 
             // Redirect user based on role
             return foundUser.Role switch

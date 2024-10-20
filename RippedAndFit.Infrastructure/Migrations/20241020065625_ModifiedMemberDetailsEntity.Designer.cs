@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RippedAndFit.Infrastructure.Data;
 
@@ -10,9 +11,11 @@ using RippedAndFit.Infrastructure.Data;
 namespace RippedAndFit.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241020065625_ModifiedMemberDetailsEntity")]
+    partial class ModifiedMemberDetailsEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -51,9 +54,6 @@ namespace RippedAndFit.Infrastructure.Migrations
                     b.Property<DateOnly>("MembershipDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("MembershipExpiration")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("MembershipStatus")
                         .HasColumnType("INTEGER");
 
@@ -77,7 +77,6 @@ namespace RippedAndFit.Infrastructure.Migrations
                             MemberId = 4,
                             MemberType = 0,
                             MembershipDate = new DateOnly(2024, 10, 20),
-                            MembershipExpiration = new DateOnly(2025, 10, 20),
                             MembershipStatus = 0,
                             PhoneNumber = "09023517263"
                         });
@@ -208,28 +207,28 @@ namespace RippedAndFit.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Password = "AQAAAAIAAYagAAAAEDJMcXU954KvVy/fNEhY691iD1eL+IiIkUsuPZ3+Ofv72+LfY+XkqJ6XQFzFgjVHLw==",
+                            Password = "AQAAAAIAAYagAAAAEHIHIaUa9dNipaTBzFnSMNMIfbbg1GSzNSSC/AyuTtWFaaGhXrDxZ7D8x4oom7btvw==",
                             Role = 0,
                             Username = "admin"
                         },
                         new
                         {
                             Id = 2,
-                            Password = "AQAAAAIAAYagAAAAEHpEDA4hzxMhn9IA6KVIBUl2ULQJ+hwdJM2D37guuA+REybKroFit3l6ukaVhCeMcA==",
+                            Password = "AQAAAAIAAYagAAAAECwxgSESJ10jIZnO0gZs6Whzof4ilpea6m1v/7eLdnpD4M92qFtKu1xS7LMtUUX+8w==",
                             Role = 2,
                             Username = "trainer"
                         },
                         new
                         {
                             Id = 3,
-                            Password = "AQAAAAIAAYagAAAAEDEmcSjWD5rXc327a53fU4L2vYJZmMUoPcNM3CjbeFVKs9kMKz0dqkWE8bGHy+13mw==",
+                            Password = "AQAAAAIAAYagAAAAEKd5+UNURjgnkwQfLfvLoCw/B1lqdn/1Jv3+vpw4vGYCmGf2M/NPJoXCutdjPsAZIw==",
                             Role = 1,
                             Username = "frontdesk"
                         },
                         new
                         {
                             Id = 4,
-                            Password = "AQAAAAIAAYagAAAAEKVMPSOMfyMHy3AkYDjFtqw1elMB8TDEsFQDfg2l5/UDKpeI4H4QnwJu9ug2oCfKnw==",
+                            Password = "AQAAAAIAAYagAAAAEMjGMe6KuvOTWy4ARAdO7AQwTP5xSFCJ5r60HekBVuHmlGZdpUby690608DQ7TTS+w==",
                             Role = 3,
                             Username = "member"
                         });

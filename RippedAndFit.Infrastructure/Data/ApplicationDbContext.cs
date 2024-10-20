@@ -109,6 +109,8 @@ public class ApplicationDbContext : DbContext
                 PhoneNumber = "09023517263",
                 MemberType = MemberType.Standard,
                 MembershipStatus = MembershipStatus.Active,
+                MembershipDate = DateOnly.FromDateTime(DateTime.Now),
+                MembershipExpiration = DateOnly.FromDateTime(DateTime.Now).AddDays(365),
                 MemberId = 4
             }
         );

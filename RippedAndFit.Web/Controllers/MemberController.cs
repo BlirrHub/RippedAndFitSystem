@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RippedAndFit.Infrastructure.Data;
+using System.Security.Claims;
 
 namespace RippedAndFit.Web.Controllers
 {
@@ -15,18 +16,21 @@ namespace RippedAndFit.Web.Controllers
             _db = db;
         }
 
-        public IActionResult Dashboard()
+        public async Task<IActionResult> Dashboard()
         {
-            return View();
-        }
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                // If the user is not authenticated, redirect to login
+                return RedirectToAction("Login", "Home");
+            }
 
-        public async Task<IActionResult> Dashboard(int userId)
-        {
+            int userId = int.Parse(userIdClaim);
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user == null)
             {
-                return NotFound();
+                return NotFound("User not found.");
             }
 
             return View(user);

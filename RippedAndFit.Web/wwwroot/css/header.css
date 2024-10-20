@@ -34,7 +34,7 @@ header {
 nav ul {
     background: #202020;
     position: fixed;
-    z-index: 999;
+    z-index: 10;
     top: 0;
     right: 0;
     height: 100vh;
