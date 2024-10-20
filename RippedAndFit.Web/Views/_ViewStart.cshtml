@@ -1,25 +1,14 @@
 ﻿@using RippedAndFit.Domain.Enums
+@using System.Security.Claims
 
 @{
-    var userRole = Context.Session.GetString("UserRole");
+    var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
 
-    if (!string.IsNullOrEmpty(userRole))
+    Layout = userRole switch
     {
-        if (userRole == Roles.Admin.ToString())
-        {
-            Layout = "_AdminLayout";
-        }
-        else if (userRole == Roles.FrontDesk.ToString() || userRole == Roles.Trainer.ToString())
-        {
-            Layout = "_AdministrationLayout";
-        }
-        else if (userRole == Roles.Member.ToString())
-        {
-            Layout = "_MemberLayout";
-        }
-    }
-    else
-    {
-        Layout = "_HomeLayout";
-    }
+        var role when role == Roles.Admin.ToString() => "_AdminLayout",
+        var role when role == Roles.FrontDesk.ToString() || role == Roles.Trainer.ToString() => "_AdministrationLayout",
+        var role when role == Roles.Member.ToString() => "_MemberLayout",
+        _ => "_HomeLayout" // Default layout
+    };
 }

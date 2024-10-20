@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RippedAndFit.Infrastructure.Data;
 
 namespace RippedAndFit.Web.Controllers
 {
+    [Authorize (Roles = "Member")]
     public class MemberController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -15,6 +18,18 @@ namespace RippedAndFit.Web.Controllers
         public IActionResult Dashboard()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Dashboard(int userId)
+        {
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
         }
 
         public IActionResult Notification()

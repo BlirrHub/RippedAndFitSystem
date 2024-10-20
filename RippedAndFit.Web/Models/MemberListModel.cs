@@ -2,7 +2,7 @@
 
 namespace RippedAndFit.Web.Models;
 
-public class MembersModel
+public class MemberListModel
 {
     public required List<Users> Users { get; set; }
     public required List<MemberDetails> MemberDetails { get; set; }

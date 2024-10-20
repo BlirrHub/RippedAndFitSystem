@@ -1,9 +1,76 @@
-﻿@{
+﻿@using RippedAndFit.Domain.Enums;
+
+@model RippedAndFit.Web.Models.MemberModel;
+
+@{
     ViewData["Title"] = "Update Member";
 }
 
-@model RippedAndFit.Domain.Entities.Users;
+<div class="registration-tab">
+    <h1>Update Member <b>Details</b></h1>
+    <div class="registration-form">
+        <form method="post">
+            <input asp-for="User.Id" hidden/>
+            <input asp-for="MemberDetails.Id" hidden />
+            <div class="row-1">
+                <label>Name</label>
+                <input asp-for="MemberDetails.FirstName" placeholder="First Name" />
+                <input asp-for="MemberDetails.LastName" placeholder="Last Name" />
+                <span asp-validation-for="MemberDetails.FirstName"></span>
+            </div>
+            <div class="row-2">
+                <label>Sex</label>
+                <div class="gender">
+                    <div class="male" style="display: block;">
+                        <input asp-for="MemberDetails.Gender" value="Male" type="radio" id="male" />
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="female" style="display: block;">
+                        <input asp-for="MemberDetails.Gender" value="Female" type="radio" id="female" />
+                        <label for="female">Female</label>
+                    </div>
+                    <span asp-validation-for="MemberDetails.Gender"></span>
+                </div>
+            </div>
 
-<h1>
-    Update Member
-</h1>
+            <div class="row-3">
+                <label>Phone</label>
+                <input asp-for="MemberDetails.PhoneNumber" placeholder="" />
+            </div>
+            <div>
+                <label>Email</label>
+                <input asp-for="MemberDetails.Email" />
+                <span asp-validation-for="MemberDetails.Email"></span>
+            </div>
+            <div class="row-5">
+                <label>Member Type</label>
+                <select asp-for="MemberDetails.MemberType">
+                    @foreach (var memberType in Enum.GetValues(typeof(MemberType)))
+                    {
+                        <option value="@memberType">@memberType</option>
+                    }
+                </select>
+            </div>
+
+            <div class="row-6">
+                <label>Username</label>
+                <input asp-for="User.Username" />
+                <span asp-validation-for="User.Username"></span>
+            </div>
+            <div class="row-7">
+                <label>Password</label>
+                <input asp-for="User.Password" type="password" />
+                <span asp-validation-for="User.Password"></span>
+            </div>
+            <div>
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

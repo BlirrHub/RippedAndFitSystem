@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RippedAndFit.Domain.Entities;
 using RippedAndFit.Domain.Enums;
 using RippedAndFit.Infrastructure.Data;
 using RippedAndFit.Web.Models;
+using System.Security.Claims;
 
 namespace RippedAndFit.Web.Controllers
 {
+    [Authorize(Roles = "Admin,Trainer,Frontdesk")]
     public class AdministrationController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -17,9 +20,24 @@ namespace RippedAndFit.Web.Controllers
             _db = db;
         }
 
-        public IActionResult Dashboard()
+        public async Task<IActionResult> Dashboard()
         {
-            return View();
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                // If the user is not authenticated, redirect to login
+                return RedirectToAction("Login", "Home");
+            }
+
+            int userId = int.Parse(userIdClaim);
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            return View(user);
         }
 
         public IActionResult Registration()
@@ -28,7 +46,7 @@ namespace RippedAndFit.Web.Controllers
         }
 
         [HttpPost]
-        public async Task <IActionResult> Registration(NewMember member)
+        public async Task <IActionResult> Registration(MemberModel member)
         {
             bool userExist = await _db.Users.FirstOrDefaultAsync(u => u.Username == member.User.Username) != null;
 
@@ -78,7 +96,7 @@ namespace RippedAndFit.Web.Controllers
             var users = await _db.Users.ToListAsync();
             var memberDetails = await _db.MemberDetails.ToListAsync();
 
-            var members = new MembersModel
+            var members = new MemberListModel
             {
                 Users = users,
                 MemberDetails = memberDetails
@@ -89,13 +107,45 @@ namespace RippedAndFit.Web.Controllers
 
         public async Task<IActionResult> UpdateMember(int memberId)
         {
-            Users? user = await _db.Users.FirstOrDefaultAsync(x => x.Id == memberId);
+            Users? user = await _db.Users.FirstOrDefaultAsync(u => u.Id == memberId);
+            MemberDetails? memberDetails = await _db.MemberDetails.FirstOrDefaultAsync(d => d.MemberId == memberId);
+
+
+            var member = new MemberModel
+            {
+                User = user,
+                MemberDetails = memberDetails
+            };
+
             if (user == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(member);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateMember(MemberModel member)
+        {
+            if (ModelState.IsValid)
+            {
+                var passwordHasher = new PasswordHasher<Users>();
+
+                var user = new Users
+                {
+                    Id = member.User.Id,
+                    Username = member.User.Username,
+                    Password = passwordHasher.HashPassword(null, member.User.Password),
+                    Role = Roles.Member
+                };
+
+                _db.Users.Update(user);
+                _db.MemberDetails.Update(member.MemberDetails);
+                _db.SaveChanges();
+            }
+
+            return View();
         }
 
         public IActionResult Logs()
@@ -106,11 +156,6 @@ namespace RippedAndFit.Web.Controllers
         public IActionResult Profile()
         {
             return View();
-        }
-
-        public IActionResult Logout()
-        {
-            return RedirectToAction("Login", "Home");
         }
     }
 }

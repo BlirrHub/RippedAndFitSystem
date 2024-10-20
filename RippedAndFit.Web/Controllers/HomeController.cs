@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +8,7 @@ using RippedAndFit.Domain.Enums;
 using RippedAndFit.Infrastructure.Data;
 using RippedAndFit.Web.Models;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace RippedAndFit.Web.Controllers
 {
@@ -39,7 +42,7 @@ namespace RippedAndFit.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(Users user)
+        public async Task<IActionResult> Login(Users user, bool rememberMe = false)
         {
             if (!ModelState.IsValid)
             {
@@ -50,40 +53,77 @@ namespace RippedAndFit.Web.Controllers
 
             if (foundUser == null)
             {
-                ModelState.AddModelError("username", "Username does not exist");
+                ModelState.AddModelError("Username", "Username does not exist");
                 return View(user);
             }
 
+            // Compare password hash
             var passwordHasher = new PasswordHasher<Users>();
-
             var result = passwordHasher.VerifyHashedPassword(foundUser, foundUser.Password, user.Password);
 
             if (result != PasswordVerificationResult.Success)
             {
-                ModelState.AddModelError("password", "Incorrect password");
+                ModelState.AddModelError("Password", "Incorrect password");
                 return View(user);
             }
 
-            HttpContext.Session.SetString("UserRole", foundUser.Role.ToString());
-
-            if (foundUser.Role == Roles.Admin)
+            // Set up claims for authentication
+            var claims = new List<Claim>
             {
-                return RedirectToAction("Dashboard", "Administration");
+                new Claim(ClaimTypes.NameIdentifier, foundUser.Id.ToString()),
+                new Claim(ClaimTypes.Name, foundUser.Username),
+                new Claim(ClaimTypes.Role, foundUser.Role.ToString())
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = rememberMe,
+                ExpiresUtc = rememberMe ? DateTimeOffset.UtcNow.AddDays(30) : null
+            };
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+            if (rememberMe)
+            {
+                Response.Cookies.Append("Username", foundUser.Username, new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddDays(30),
+                    HttpOnly = true,
+                    Secure = true
+                });
+            }
+            else
+            {
+                // Remove the cookie if Remember Me is not checked
+                if (Request.Cookies.ContainsKey("Username"))
+                {
+                    Response.Cookies.Delete("Username");
+                }
             }
 
-            if (foundUser.Role == Roles.FrontDesk || foundUser.Role == Roles.Trainer)
-            {
-                return RedirectToAction("Dashboard", "Administration");
-            }
 
-            if (foundUser.Role == Roles.Member)
+            // Redirect user based on role
+            return foundUser.Role switch
             {
-                return RedirectToAction("Dashboard", "Member");
-            }
-
-            return View(user);
+                Roles.Admin => RedirectToAction("Dashboard", "Administration"),
+                Roles.FrontDesk or Roles.Trainer => RedirectToAction("Dashboard", "Administration"),
+                Roles.Member => RedirectToAction("Dashboard", "Member"),
+                _ => View(user),
+            };
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Home");
+        }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -92,3 +132,4 @@ namespace RippedAndFit.Web.Controllers
         }
     }
 }
+    

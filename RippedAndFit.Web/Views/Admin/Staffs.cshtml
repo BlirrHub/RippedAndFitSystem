@@ -5,50 +5,51 @@
     ViewData["Title"] = "Staffs";
 }
 
-@model RippedAndFit.Web.Models.StaffsModel;
+@model RippedAndFit.Web.Models.StafflListModel;
 
 <div>
     <div>
         <h1>
             Staffs
         </h1>
-        <div class="staff-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>Email</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var user in Model.Users)
+        <a asp-controller="Admin" asp-action="AddStaff"><i class="bi bi-plus-lg"></i>Add Staff</a>
+    </div>
+    <div class="staff-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    if (user.Role == Roles.Admin || user.Role == Roles.FrontDesk || user.Role == Roles.Trainer)
                     {
-                        if (user.Role == Roles.Admin || user.Role == Roles.FrontDesk || user.Role == Roles.Trainer)
-                        {
-                            StaffDetails? staff = Model.StaffDetails.FirstOrDefault(s => s.StaffId == user.Id);
+                        StaffDetails? staff = Model.StaffDetails.FirstOrDefault(s => s.StaffId == user.Id);
 
-                            if(staff != null)
-                            {
-                                <tr>
-                                    <td>@user.Id</td>
-                                    <td>@staff.FirstName @staff.LastName</td>
-                                    <td>@user.Role</td>
-                                    <td>@staff.Email</td>
-                                    <td>
-                                        <div role="group">
-                                            <a asp-controller="Admin" asp-action="UpdateStaff" asp-route-staffId="@user.Id"><i class="bi bi-pencil-square"></i>Edit</a>
-                                            <a asp-route-staffId="@user.Id"><i class="bi bi-trash"></i>Delete</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
+                        if (staff != null)
+                        {
+                            <tr>
+                                <td>@user.Id</td>
+                                <td>@staff.FirstName @staff.LastName</td>
+                                <td>@user.Role</td>
+                                <td>@staff.Email</td>
+                                <td>
+                                    <div role="group">
+                                        <a asp-controller="Admin" asp-action="UpdateStaff" asp-route-staffId="@user.Id"><i class="bi bi-pencil-square"></i>Edit</a>
+                                        <a asp-route-staffId="@user.Id"><i class="bi bi-trash"></i>Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
                         }
                     }
-                </tbody>
-            </table>
-        </div>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
