@@ -26,7 +26,8 @@ public class MemberDetails
     public required MemberType MemberType { get; set; }
     [Required]
     public required MembershipStatus MembershipStatus { get; set; }
-    //public required DateOnly MembershipDate { get; set; }
+    public required DateOnly MembershipDate { get; set; }
+    public required DateOnly MembershipExpiration { get; set; }
     [ForeignKey("Member")]
     [Required]
     public required int MemberId { get; set; }

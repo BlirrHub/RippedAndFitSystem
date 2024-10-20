@@ -81,6 +81,8 @@ namespace RippedAndFit.Web.Controllers
                     PhoneNumber = member.MemberDetails.PhoneNumber,
                     MemberType = member.MemberDetails.MemberType,
                     MembershipStatus = MembershipStatus.Active,
+                    MembershipDate = DateOnly.FromDateTime(DateTime.Now),
+                    MembershipExpiration = DateOnly.FromDateTime(DateTime.Now).AddDays(365),
                     MemberId = user.Id
                 };
 
@@ -111,16 +113,16 @@ namespace RippedAndFit.Web.Controllers
             MemberDetails? memberDetails = await _db.MemberDetails.FirstOrDefaultAsync(d => d.MemberId == memberId);
 
 
+            if (user == null || memberDetails == null)
+            {
+                return NotFound();
+            }
+
             var member = new MemberModel
             {
                 User = user,
                 MemberDetails = memberDetails
             };
-
-            if (user == null)
-            {
-                return NotFound();
-            }
 
             return View(member);
         }
@@ -128,7 +130,7 @@ namespace RippedAndFit.Web.Controllers
         [HttpPost]
         public IActionResult UpdateMember(MemberModel member)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && member.User.Id > 0 && member.MemberDetails.Id > 0)
             {
                 var passwordHasher = new PasswordHasher<Users>();
 
@@ -141,11 +143,45 @@ namespace RippedAndFit.Web.Controllers
                 };
 
                 _db.Users.Update(user);
-                _db.MemberDetails.Update(member.MemberDetails);
+                _db.SaveChanges();
+
+                var memberDetails = new MemberDetails
+                {
+                    FirstName = member.MemberDetails.FirstName,
+                    LastName = member.MemberDetails.LastName,
+                    DateOfBirth = member.MemberDetails.DateOfBirth,
+                    Age = member.MemberDetails.Age,
+                    Gender = member.MemberDetails.Gender,
+                    Email = member.MemberDetails.Email,
+                    PhoneNumber = member.MemberDetails.PhoneNumber,
+                    MemberType = member.MemberDetails.MemberType,
+                    MembershipStatus = member.MemberDetails.MembershipStatus,
+                    MembershipDate = member.MemberDetails.MembershipDate,
+                    MembershipExpiration = member.MemberDetails.MembershipExpiration,
+                    MemberId = user.Id
+                };
+
+                _db.MemberDetails.Update(memberDetails);
                 _db.SaveChanges();
             }
 
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteStaff(int memberId)
+        {
+            Users? user = await _db.Users.FirstOrDefaultAsync(u => u.Id == memberId);
+            MemberDetails? memberDetails = await _db.MemberDetails.FirstOrDefaultAsync(d => d.MemberId == memberId);
+
+            if(user != null && memberDetails != null)
+            {
+                _db.Users.Remove(user);
+                _db.MemberDetails.Remove(memberDetails);
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("Members");
         }
 
         public IActionResult Logs()
