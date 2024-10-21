@@ -35,6 +35,7 @@ body {
 }
 
 .nav-bar {
+    overflow: auto;
     background: #202020;
     position: fixed;
     z-index: 999;

@@ -1,3 +1,7 @@
+body {
+    background: #29292e;
+}
+
 .home-background {
     background-image: url(../image/Background-1.png);
     background-size: cover;
@@ -171,6 +175,108 @@ span {
     font-size: 1rem;
 }
 
+/*About Us*/
+
+.about-us-bg {
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+}
+
+.about-us-bg img{
+    width: 100vw;
+    height: auto;
+}
+
+.about-us-content {
+    position: fixed;
+    bottom: 0;
+    width: auto;
+    height: 55%;
+    padding: 0.5em;
+    background-color: #29292e;
+    color: white;
+    padding: 1em;
+    line-height: 1.5em;
+    text-align: center;
+}
+
+.about-us-content p {
+    text-align: justify;
+    text-indent: 1.5em;
+}
+
+/*Contact Us*/
+
+.wrapper {
+    padding: 2em;
+}
+
+.contact-details {
+    text-align: center;
+    line-height: 1em;
+    color: white;
+}
+
+.contact-details h1 {
+    margin-top: 0;
+}
+
+.contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contacts div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.contacts div img {
+    width: auto;
+    height: auto;
+    max-width: 75px;
+}
+
+.contacts div p {
+    text-align: left;
+}
+
+.contact-form {
+    margin-top: 1em;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(32, 32, 32, 0.8);
+    border-radius: 12px;
+}
+
+.contact-form input, textarea, button {
+    border-radius: 16px;
+    padding: 0.5em;
+    font-size: 1.15rem;
+    margin: .5em;
+}
+
+.contact-form input::placeholder, textarea::placeholder{
+    color: #ed563b;
+}
+
+.contact-form textarea{
+    resize: none;
+    height: 175px;
+}
+
+.contact-form button {
+    color: white;
+    background: #ed563b;
+    padding: 0.5em;
+}
+
 @media (min-width: 668px) {
     /*Home*/
 
@@ -280,6 +386,7 @@ span {
         width: 60%;
         color: white;
         line-height: 4.25em;
+        z-index: -1;
     }
 
     .slogan h1 {
@@ -313,5 +420,98 @@ span {
 
     .login-form button {
         font-size: 1.25rem;
+    }
+
+    /*About Us*/
+    .about-us-bg img{
+        position: fixed;
+        width: 75%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .about-us-content {
+        padding: 2em;
+        font-size: 1.4rem;
+        border-radius: 0;
+        position: fixed;
+        height: calc(100vh - 60px);
+        top: 60px;
+        right: 0;
+        width: 40%;
+        line-height: 1.5em;
+    }   
+
+    .about-us-content h1 {
+        font-size: 5rem;
+    }
+
+    .about-us-content h2 {
+        font-size: 3rem;
+    }
+
+    .about-us-content p {
+        text-align: justify;
+        text-indent: 1.5em;
+    }
+
+    /*Contact-Us*/
+
+    .wrapper {
+        display: flex;
+        justify-content: space-around
+    }
+
+    .contact-details {
+        text-align: left;
+        line-height: 5em;
+    }
+
+    .contact-details h1 {
+        padding-top: 1em;
+        margin-bottom: 0;
+        font-size: 4rem;
+    }
+
+    .contact-details h3 {
+        padding-bottom: .5em;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 2rem;
+    }
+
+    .contacts {
+        gap: 50px;
+        line-height: 2em;
+    }
+
+    .contacts div p {
+        font-size: 1.5rem;
+    }
+
+    .contacts div img {
+        width: auto;
+        height: auto;
+        max-width: 100px;
+    }
+
+    .contact-form {
+        padding: 2em;
+        margin-top: 100px;
+    }
+
+    .contact-form input, textarea, button {
+        border-radius: 16px;
+        padding: 0.5em 2em 0.5em, 2em;
+        font-size: 1.5rem;
+        margin: .5em;
+        width: 500px;
+    }
+
+    .contact-form textarea {
+        resize: none;
+        height: 175px;
     }
 }

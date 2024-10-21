@@ -1,0 +1,84 @@
+﻿@using RippedAndFit.Domain.Enums
+@using System.Security.Claims
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ripped And Fit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/css/main-navbar.css" />
+    <link rel="stylesheet" href="~/css/registration.css" />
+</head>
+<body>
+    <div>
+        <header>
+            <a class="menu-open hide-desktop">
+                <img src="@Url.Content("~/image/Menu-Icon.svg")" alt="Open Menu" />
+            </a>
+            <img class="gym-logo hide-mobile" src="@Url.Content("~/image/Logo.svg")" alt="Ripped and Fit Logo" />
+        </header>
+
+        <div class="nav-bar">
+            <div>
+                <a class="menu-close hide-desktop">
+                    <img src="@Url.Content("~/image/Close-Icon.svg")" alt="Close Menu" />
+                </a>
+            </div>
+            <div class="gym-icon">
+                <img src="@Url.Content("~/image/Logo-Icon.svg")" alt="Gym Logo" />
+            </div>
+            <div class="nav-tab">
+                @{
+                    var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+
+                    switch (userRole) 
+                    {
+                        case "Admin":
+                            <a asp-controller="Administration" asp-action="Dashboard"><i class="bi bi-window-desktop"></i> Dashboard</a>
+                            <a asp-controller="Administration" asp-action="Registration"><i class="bi bi-person-lines-fill"></i> Registration</a>
+                            <a asp-controller="Admin" asp-action="Staffs"><i class="bi bi-person-fill-gear"></i> Staffs</a>
+                            <a asp-controller="Administration" asp-action="Members"><i class="bi bi-people-fill"></i> Members</a>
+                            <a asp-controller="Administration" asp-action="Logs"><i class="bi bi-clock-history"></i> Logs</a>
+                            break;
+                        case "Frontdesk":
+                        case "Trainer":
+                            <a asp-controller="Administration" asp-action="Dashboard"><i class="bi bi-window-desktop"></i> Dashboard</a>
+                            <a asp-controller="Administration" asp-action="Registration"><i class="bi bi-person-lines-fill"></i> Registration</a>
+                            <a asp-controller="Administration" asp-action="Members"><i class="bi bi-people-fill"></i> Members</a>
+                            <a asp-controller="Administration" asp-action="Logs"><i class="bi bi-clock-history"></i> Logs</a>
+                            break;
+                        case "Member":
+                            <a asp-controller="Member" asp-action="Dashboard"><i class="bi bi-window-desktop"></i> Dashboard</a>
+                            <a asp-controller="Member" asp-action="Notification"><i class="bi bi-bell-fill"></i> Notification</a>
+                            <a asp-controller="Member" asp-action="History"><i class="bi bi-clock-history"></i> History</a>
+                            <a asp-controller="Member" asp-action="Renew"><i class="bi bi-arrow-repeat"></i> Renew</a>
+                            break;
+                    }
+                }
+            </div>
+            <div class="utility">
+                <a asp-controller="Administration" asp-action="Profile"><i class="bi bi-person-fill"></i> Profile</a>
+                <a href="javascript:void(0);" onclick="confirmLogout('@Url.Action("Logout", "Home")');">
+                    <i class="bi bi-box-arrow-in-left"></i> Logout
+                </a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

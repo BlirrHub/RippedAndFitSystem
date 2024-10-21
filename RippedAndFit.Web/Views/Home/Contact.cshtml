@@ -3,15 +3,34 @@
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
-<div>
-    <h2>CONTACT US</h2>
-    <h4>GET IN TOUCH</h4>
-</div>
-<div>
-    <form method="post">
-        <input placeholder="NAME"/>
-        <input placeholder="EMAIL"/>
-        <textarea placeholder="COMMENT"></textarea>
-        <button type="submit"></button>
-    </form>
+<div class="home-background">
+    <div class="wrapper">
+        <div class="contact-details">
+            <h1>CONTACT <b style="color: #ed563b">US</b></h1>
+            <h3>GET IN <b style="color: #ed563b">TOUCH</b></h3>
+            <div class="contacts">
+                <div>
+                    <img src="@Url.Content("~/image/LocationIcon.svg")" alt="Location Icon" />
+                    <p>1234 Oakwood St, Apt 567 Greenwood Heights, New York, NY 11232 USA</p>
+                </div>
+                <div>
+                    <img src="@Url.Content("~/image/MobileIcon.svg")" alt="Mobile Phone Icon" />
+                    <p>(555) 123-4567<p />
+                </div>
+                <div>
+                    <img src="@Url.Content("~/image/MailIcon.svg")" alt="Mail Icon Icon" />
+                    <p>sampleuser@gmail.com</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <form method="post" class="contact-form">
+
+                <input placeholder="NAME" />
+                <input placeholder="EMAIL" />
+                <textarea placeholder="COMMENT"></textarea>
+                <button type="submit">SUBMIT</button>
+            </form>
+        </div>
+    </div>
 </div>
