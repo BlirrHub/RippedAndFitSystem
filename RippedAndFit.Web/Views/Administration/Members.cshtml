@@ -31,18 +31,18 @@
                     {
                         if(user.Role == Roles.Member)
                         {
-                            MemberDetails? member = Model.MemberDetails.FirstOrDefault(s => s.MemberId == user.Id);
+                            MemberDetails? memberDetails = Model.MemberDetails.FirstOrDefault(s => s.MemberId == user.Id);
 
-                            if(member != null)
+                            if(memberDetails != null)
                             {
                                 <tr>
-                                    <td>@user.Id</td>
-                                    <td>@member.FirstName @member.LastName</td>
-                                    <td>@member.Email</td>
-                                    <td>@member.MemberType</td>
-                                    <td>@member.MembershipDate</td>
-                                    <td>@member.MembershipExpiration</td>
-                                    <td>@member.MembershipStatus</td>
+                                    <td>@memberDetails.Id</td>
+                                    <td>@memberDetails.FirstName @memberDetails.LastName</td>
+                                    <td>@memberDetails.Email</td>
+                                    <td>@memberDetails.MemberType</td>
+                                    <td>@memberDetails.MembershipDate</td>
+                                    <td>@memberDetails.MembershipExpiration</td>
+                                    <td>@memberDetails.MembershipStatus</td>
                                     <td>
                                         <div role="group">
                                             <a asp-controller="Administration" asp-action="UpdateMember" asp-route-memberId="@user.Id"><i class="bi bi-pencil-square"></i>Edit</a>
@@ -60,11 +60,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function confirmDelete(url) {
-        if (confirm('Are you sure you want to delete this member?')) {
-            window.location.href = url;
-        }
-    }
-</script>

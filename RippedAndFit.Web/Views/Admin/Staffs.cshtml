@@ -28,17 +28,17 @@
             <tbody>
                 @foreach (var user in Model.Users)
                 {
-                    if (user.Role == Roles.Admin || user.Role == Roles.FrontDesk || user.Role == Roles.Trainer)
+                    if (user.Role == Roles.FrontDesk || user.Role == Roles.Trainer)
                     {
-                        StaffDetails? staff = Model.StaffDetails.FirstOrDefault(s => s.StaffId == user.Id);
+                        StaffDetails? staffDetails = Model.StaffDetails.FirstOrDefault(s => s.StaffId == user.Id);
 
-                        if (staff != null)
+                        if (staffDetails != null)
                         {
                             <tr>
-                                <td>@user.Id</td>
-                                <td>@staff.FirstName @staff.LastName</td>
+                                <td>@staffDetails.Id</td>
+                                <td>@staffDetails.FirstName @staffDetails.LastName</td>
                                 <td>@user.Role</td>
-                                <td>@staff.Email</td>
+                                <td>@staffDetails.Email</td>
                                 <td>
                                     <div role="group">
                                         <a asp-controller="Admin" asp-action="UpdateStaff" asp-route-staffId="@user.Id"><i class="bi bi-pencil-square"></i>Edit</a>
@@ -55,11 +55,3 @@
         </table>
     </div>
 </div>
-
-<script>
-    function confirmDelete(url) {
-        if (confirm('Are you sure you want to remove this staff?')) {
-            window.location.href = url;
-        }
-    }
-</script>
