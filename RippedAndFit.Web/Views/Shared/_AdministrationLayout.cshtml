@@ -14,12 +14,10 @@
 <body>
     <div>
         <header>
-            <div>
-                <a class="menu-open hide-desktop">
-                    <img src="@Url.Content("~/image/Menu-Icon.svg")" alt="Open Menu" />
-                </a>
-                <img class="gym-logo" src="@Url.Content("~/image/Logo.svg")" alt="Ripped and Fit Logo" />
-            </div>
+            <a class="menu-open hide-desktop">
+                <img src="@Url.Content("~/image/Menu-Icon.svg")" alt="Open Menu" />
+            </a>
+            <img class="gym-logo" src="@Url.Content("~/image/Logo.svg")" alt="Ripped and Fit Logo" />
         </header>
 
         <div class="nav-bar">
@@ -39,7 +37,9 @@
             </div>
             <div class="utility">
                 <a asp-controller="Administration" asp-action="Profile"><i class="bi bi-person-fill"></i> Profile</a>
-                <a asp-controller="Home" asp-action="Logout"><i class="bi bi-box-arrow-in-left"></i> Logout</a>
+                <a href="javascript:void(0);" onclick="confirmLogout('@Url.Action("Logout", "Home")');">
+                    <i class="bi bi-box-arrow-in-left"></i> Logout
+                </a>
             </div>
         </div>
 
@@ -49,23 +49,7 @@
             </main>
         </div>
     </div>
-    <script>
-        const menu = document.querySelector('.nav-bar');
-        const menuBtn = document.querySelector('.menu-open');
-        const closeBtn = document.querySelector('.menu-close');
 
-        if (menuBtn) {
-            menuBtn.addEventListener('click', () => {
-                menu.classList.add('open');
-            });
-        }
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                menu.classList.remove('open');
-            });
-        }
-    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
