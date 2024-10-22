@@ -8,9 +8,14 @@
 
 <div class="registration-tab">
     <h1>Register <b>Member</b></h1>
-
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
     <div class="registration-form">
-        <form method="post">
+        <form method="post" id="registrationForm">
             <div class="row-1">
                 <label>Name</label>
                 <input asp-for="MemberDetails.FirstName" placeholder="First Name" />
@@ -69,7 +74,13 @@
 </div>
 
 @section Scripts{
-    @{
-        <partial name="_ValidationScriptsPartial"/>
-    }
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        window.onload = function() {
+            if (document.querySelector('.alert-success')) {
+                document.getElementById('registrationForm').reset();
+            }
+        }
+    </script>
 }

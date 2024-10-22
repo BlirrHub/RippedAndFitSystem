@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RippedAndFit.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RippedAndFit.Infrastructure.Data;
 namespace RippedAndFit.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241022053608_AddedPrecisionToHeightAndWeight")]
+    partial class AddedPrecisionToHeightAndWeight
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +36,7 @@ namespace RippedAndFit.Infrastructure.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
 
                     b.Property<string>("Email")
@@ -55,10 +58,10 @@ namespace RippedAndFit.Infrastructure.Migrations
                     b.Property<int>("MemberType")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("MembershipDate")
+                    b.Property<DateOnly>("MembershipDate")
                         .HasColumnType("date");
 
-                    b.Property<DateTime>("MembershipExpiration")
+                    b.Property<DateOnly>("MembershipExpiration")
                         .HasColumnType("date");
 
                     b.Property<int>("MembershipStatus")
@@ -76,15 +79,15 @@ namespace RippedAndFit.Infrastructure.Migrations
                         {
                             Id = 1,
                             Age = 24,
-                            DateOfBirth = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateOnly(2000, 1, 1),
                             Email = "juancruz@gmail.com",
                             FirstName = "Juan",
                             Gender = 0,
                             LastName = "Cruz",
                             MemberId = 4,
                             MemberType = 0,
-                            MembershipDate = new DateTime(2024, 10, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MembershipExpiration = new DateTime(2025, 10, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MembershipDate = new DateOnly(2024, 10, 22),
+                            MembershipExpiration = new DateOnly(2025, 10, 22),
                             MembershipStatus = 0,
                             PhoneNumber = "09023517263"
                         });
@@ -131,7 +134,7 @@ namespace RippedAndFit.Infrastructure.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
 
                     b.Property<string>("Email")
@@ -162,7 +165,7 @@ namespace RippedAndFit.Infrastructure.Migrations
                         {
                             Id = 1,
                             Age = 0,
-                            DateOfBirth = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateOnly(2000, 1, 1),
                             Email = "",
                             FirstName = "",
                             Gender = 0,
@@ -174,7 +177,7 @@ namespace RippedAndFit.Infrastructure.Migrations
                         {
                             Id = 2,
                             Age = 0,
-                            DateOfBirth = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateOnly(2000, 1, 1),
                             Email = "",
                             FirstName = "frontdesk",
                             Gender = 0,
@@ -186,7 +189,7 @@ namespace RippedAndFit.Infrastructure.Migrations
                         {
                             Id = 3,
                             Age = 0,
-                            DateOfBirth = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateOnly(2000, 1, 1),
                             Email = "",
                             FirstName = "trainer",
                             Gender = 0,
@@ -223,28 +226,28 @@ namespace RippedAndFit.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Password = "AQAAAAIAAYagAAAAEC8aZdGzYazQjKhnXFzIxjKCKLH1kaaBXu2jryq+h3JgKRanYiHtA75c35rXeF8B7Q==",
+                            Password = "AQAAAAIAAYagAAAAENarI06Gmf4Q1KP335I1BvJDOn5QVJXkQDxrGukBm8++aRDYCDbudqvx01eDBJY84Q==",
                             Role = 0,
                             Username = "admin"
                         },
                         new
                         {
                             Id = 2,
-                            Password = "AQAAAAIAAYagAAAAEAFycO2fg6bS9Lpt/f5FTYuqFPvEPpXefg2dk7ylAnY/KnlscGfPGoiYCKo3dDZ3ig==",
+                            Password = "AQAAAAIAAYagAAAAEH4+uMJgbTU1bfv8uKDFae22OBtmk8tcWpHs7AnYU+A3qgtX13svaW5of4poyK3Xkw==",
                             Role = 2,
                             Username = "trainer"
                         },
                         new
                         {
                             Id = 3,
-                            Password = "AQAAAAIAAYagAAAAEGlQpGKY7Vec+1dH78/W2ps+Kwa0CvVSDcujtw7t0nnSxR6TVNvcWzxRhQ/GhVIR0A==",
+                            Password = "AQAAAAIAAYagAAAAEBwU6tS17vfM8QbNwGob89M1vAjL9Jp2HIUogvzJpS+CDaqWg3u6gC+rtGKC92FbjA==",
                             Role = 1,
                             Username = "frontdesk"
                         },
                         new
                         {
                             Id = 4,
-                            Password = "AQAAAAIAAYagAAAAEG8tBnOgdxxnpHOCyIoFpM9OJXPAQGLuLNBVn6w4lJCqqZxw1v5CIBXcTKqL93msyw==",
+                            Password = "AQAAAAIAAYagAAAAENHaMCw3ZyRfEwO5tvdzQtMpLbP5kyFpWkK6lao+67SC3aBLhK6Ewj/kKVnSUjFfcw==",
                             Role = 3,
                             Username = "member"
                         });

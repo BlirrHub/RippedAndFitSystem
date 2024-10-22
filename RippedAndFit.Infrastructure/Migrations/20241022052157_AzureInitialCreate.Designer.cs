@@ -2,7 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RippedAndFit.Infrastructure.Data;
 
@@ -11,61 +11,57 @@ using RippedAndFit.Infrastructure.Data;
 namespace RippedAndFit.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241022052157_AzureInitialCreate")]
+    partial class AzureInitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
 
             modelBuilder.Entity("RippedAndFit.Domain.Entities.MemberDetails", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Age")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("date");
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Gender")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("MemberId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("MemberType")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("MembershipDate")
-                        .HasColumnType("date");
+                    b.Property<DateOnly>("MembershipDate")
+                        .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("MembershipExpiration")
-                        .HasColumnType("date");
+                    b.Property<DateOnly>("MembershipExpiration")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("MembershipStatus")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -76,15 +72,15 @@ namespace RippedAndFit.Infrastructure.Migrations
                         {
                             Id = 1,
                             Age = 24,
-                            DateOfBirth = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateOnly(2000, 1, 1),
                             Email = "juancruz@gmail.com",
                             FirstName = "Juan",
                             Gender = 0,
                             LastName = "Cruz",
                             MemberId = 4,
                             MemberType = 0,
-                            MembershipDate = new DateTime(2024, 10, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MembershipExpiration = new DateTime(2025, 10, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MembershipDate = new DateOnly(2024, 10, 22),
+                            MembershipExpiration = new DateOnly(2025, 10, 22),
                             MembershipStatus = 0,
                             PhoneNumber = "09023517263"
                         });
@@ -94,26 +90,22 @@ namespace RippedAndFit.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ActivityLevel")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("FitnessGoal")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Height")
-                        .HasPrecision(10, 3)
-                        .HasColumnType("decimal(10,3)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("MemberId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Weight")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -124,34 +116,32 @@ namespace RippedAndFit.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Age")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("date");
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Gender")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("StaffId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -162,7 +152,7 @@ namespace RippedAndFit.Infrastructure.Migrations
                         {
                             Id = 1,
                             Age = 0,
-                            DateOfBirth = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateOnly(2000, 1, 1),
                             Email = "",
                             FirstName = "",
                             Gender = 0,
@@ -174,7 +164,7 @@ namespace RippedAndFit.Infrastructure.Migrations
                         {
                             Id = 2,
                             Age = 0,
-                            DateOfBirth = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateOnly(2000, 1, 1),
                             Email = "",
                             FirstName = "frontdesk",
                             Gender = 0,
@@ -186,7 +176,7 @@ namespace RippedAndFit.Infrastructure.Migrations
                         {
                             Id = 3,
                             Age = 0,
-                            DateOfBirth = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateOnly(2000, 1, 1),
                             Email = "",
                             FirstName = "trainer",
                             Gender = 0,
@@ -200,20 +190,18 @@ namespace RippedAndFit.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Role")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -223,28 +211,28 @@ namespace RippedAndFit.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Password = "AQAAAAIAAYagAAAAEC8aZdGzYazQjKhnXFzIxjKCKLH1kaaBXu2jryq+h3JgKRanYiHtA75c35rXeF8B7Q==",
+                            Password = "AQAAAAIAAYagAAAAELcJp0yVrZGRdq2V8g44AnBfKtOn34BfZ4UrmBJPKf2D48A1xqC+SFW2eUFF9FlnHw==",
                             Role = 0,
                             Username = "admin"
                         },
                         new
                         {
                             Id = 2,
-                            Password = "AQAAAAIAAYagAAAAEAFycO2fg6bS9Lpt/f5FTYuqFPvEPpXefg2dk7ylAnY/KnlscGfPGoiYCKo3dDZ3ig==",
+                            Password = "AQAAAAIAAYagAAAAEHzFbJFgvxql1scqHr9xJvKxjR/q08FLsmM+T8ymMHTDAx52BV7J1duH5NE+8zn0dw==",
                             Role = 2,
                             Username = "trainer"
                         },
                         new
                         {
                             Id = 3,
-                            Password = "AQAAAAIAAYagAAAAEGlQpGKY7Vec+1dH78/W2ps+Kwa0CvVSDcujtw7t0nnSxR6TVNvcWzxRhQ/GhVIR0A==",
+                            Password = "AQAAAAIAAYagAAAAEGoAJ2TLv0IGwjkcP3QQWaTaW/AsZrtKoQgxDqtN7Wi9fx5pcG4Jo/gl79uUKv3gZA==",
                             Role = 1,
                             Username = "frontdesk"
                         },
                         new
                         {
                             Id = 4,
-                            Password = "AQAAAAIAAYagAAAAEG8tBnOgdxxnpHOCyIoFpM9OJXPAQGLuLNBVn6w4lJCqqZxw1v5CIBXcTKqL93msyw==",
+                            Password = "AQAAAAIAAYagAAAAEJODnLfu1uXAuSWKYg9sLb7Pbku+8rOVHiF6Am9QWLtSV1Vq0OmVlhSuRzQovVeRAg==",
                             Role = 3,
                             Username = "member"
                         });

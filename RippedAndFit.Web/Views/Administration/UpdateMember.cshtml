@@ -9,7 +9,7 @@
 <div class="registration-tab">
     <h1>Update <b>Member Details</b></h1>
     <div class="registration-form">
-        <form method="post">
+        <form asp-controller="Administration" asp-action="UpdateMember" method="post">
             <input asp-for="User.Id" hidden/>
             <input asp-for="MemberDetails.Id" hidden />
             <div class="row-1">
@@ -22,11 +22,11 @@
                 <label>Sex</label>
                 <div class="gender">
                     <div class="male" style="display: block;">
-                        <input asp-for="MemberDetails.Gender" value="Male" type="radio" id="male" />
+                        <input asp-for="MemberDetails.Gender" value="Male" type="radio" id="male" name="MemberDetails.Gender" />
                         <label for="male">Male</label>
                     </div>
                     <div class="female" style="display: block;">
-                        <input asp-for="MemberDetails.Gender" value="Female" type="radio" id="female" />
+                        <input asp-for="MemberDetails.Gender" value="Female" type="radio" id="female" name="MemberDetails.Gender" />
                         <label for="female">Female</label>
                     </div>
                     <span asp-validation-for="MemberDetails.Gender"></span>

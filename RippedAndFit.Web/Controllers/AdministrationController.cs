@@ -10,7 +10,7 @@ using System.Security.Claims;
 
 namespace RippedAndFit.Web.Controllers
 {
-    [Authorize(Roles = "Admin,Trainer,Frontdesk")]
+    [Authorize(Roles = "Admin,Trainer,FrontDesk")]
     public class AdministrationController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -88,6 +88,7 @@ namespace RippedAndFit.Web.Controllers
 
                 _db.MemberDetails.Add(memberDetails);
                 _db.SaveChanges();
+                TempData["SuccessMessage"] = "Registration successful!";
             }
 
             return View();
@@ -132,55 +133,60 @@ namespace RippedAndFit.Web.Controllers
         {
             if (ModelState.IsValid && member.User.Id > 0 && member.MemberDetails.Id > 0)
             {
-                var passwordHasher = new PasswordHasher<Users>();
-
-                var user = new Users
+                // Retrieve and update user
+                var existingUser = _db.Users.FirstOrDefault(u => u.Id == member.User.Id);
+                if (existingUser != null)
                 {
-                    Id = member.User.Id,
-                    Username = member.User.Username,
-                    Password = passwordHasher.HashPassword(null, member.User.Password),
-                    Role = Roles.Member
-                };
+                    existingUser.Username = member.User.Username;
+            
+                    if (!string.IsNullOrEmpty(member.User.Password))
+                    {
+                        var passwordHasher = new PasswordHasher<Users>();
+                        existingUser.Password = passwordHasher.HashPassword(existingUser, member.User.Password);
+                    }
 
-                _db.Users.Update(user);
-                _db.SaveChanges();
+                    _db.Users.Update(existingUser);
+                    _db.SaveChanges();
+                }
 
-                var memberDetails = new MemberDetails
+                // Retrieve and update member details
+                var existingMemberDetails = _db.MemberDetails.FirstOrDefault(m => m.Id == member.MemberDetails.Id);
+                if (existingMemberDetails != null)
                 {
-                    FirstName = member.MemberDetails.FirstName,
-                    LastName = member.MemberDetails.LastName,
-                    DateOfBirth = member.MemberDetails.DateOfBirth,
-                    Age = member.MemberDetails.Age,
-                    Gender = member.MemberDetails.Gender,
-                    Email = member.MemberDetails.Email,
-                    PhoneNumber = member.MemberDetails.PhoneNumber,
-                    MemberType = member.MemberDetails.MemberType,
-                    MembershipStatus = member.MemberDetails.MembershipStatus,
-                    MembershipDate = member.MemberDetails.MembershipDate,
-                    MembershipExpiration = member.MemberDetails.MembershipExpiration,
-                    MemberId = user.Id
-                };
+                    existingMemberDetails.FirstName = member.MemberDetails.FirstName;
+                    existingMemberDetails.LastName = member.MemberDetails.LastName;
+                    existingMemberDetails.DateOfBirth = member.MemberDetails.DateOfBirth;
+                    existingMemberDetails.Age = member.MemberDetails.Age;
+                    existingMemberDetails.Gender = member.MemberDetails.Gender;
+                    existingMemberDetails.Email = member.MemberDetails.Email;
+                    existingMemberDetails.PhoneNumber = member.MemberDetails.PhoneNumber;
+                    existingMemberDetails.MemberType = member.MemberDetails.MemberType;
+                    existingMemberDetails.MembershipStatus = member.MemberDetails.MembershipStatus;
 
-                _db.MemberDetails.Update(memberDetails);
-                _db.SaveChanges();
+                    _db.MemberDetails.Update(existingMemberDetails);
+                    _db.SaveChanges();
+                }
+
+                TempData["UpdateSuccess"] = "Member updated successfully!";
+                return RedirectToAction("Members", "Administration");
             }
 
-            return View();
+            return View(member);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteStaff(int memberId)
+        public async Task<IActionResult> DeleteMember(int memberId)
         {
             Users? user = await _db.Users.FirstOrDefaultAsync(u => u.Id == memberId);
-            MemberDetails? memberDetails = await _db.MemberDetails.FirstOrDefaultAsync(d => d.MemberId == memberId);
-
-            if(user != null && memberDetails != null)
+            if(user != null)
             {
-                _db.Users.Remove(user);
-                _db.MemberDetails.Remove(memberDetails);
-                _db.SaveChanges();
+                MemberDetails? memberDetails = await _db.MemberDetails.FirstOrDefaultAsync(d => d.MemberId == user.Id);
+                if (memberDetails != null)
+                {
+                    _db.Users.Remove(user);
+                    _db.MemberDetails.Remove(memberDetails);
+                    _db.SaveChanges();
+                }
             }
-
             return RedirectToAction("Members");
         }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RippedAndFit.Domain.Entities;
 using RippedAndFit.Domain.Enums;
 
@@ -19,6 +20,40 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         //base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<MemberHealthDetails>()
+        .Property(m => m.Height)
+        .HasPrecision(10, 3);
+
+        modelBuilder.Entity<MemberHealthDetails>()
+            .Property(m => m.Weight)
+            .HasPrecision(10, 2);
+
+        var dateOnlyConverter = new ValueConverter<DateOnly, DateTime>(
+        v => v.ToDateTime(TimeOnly.MinValue),
+        v => DateOnly.FromDateTime(v));
+
+        // Apply the converter to DateOnly properties
+        modelBuilder.Entity<MemberDetails>()
+            .Property(e => e.DateOfBirth)
+            .HasConversion(dateOnlyConverter)
+            .HasColumnType("date");
+
+        modelBuilder.Entity<MemberDetails>()
+            .Property(e => e.MembershipDate)
+            .HasConversion(dateOnlyConverter)
+            .HasColumnType("date");
+
+        modelBuilder.Entity<MemberDetails>()
+            .Property(e => e.MembershipExpiration)
+            .HasConversion(dateOnlyConverter)
+            .HasColumnType("date");
+
+        modelBuilder.Entity<StaffDetails>()
+            .Property(e => e.DateOfBirth)
+            .HasConversion(dateOnlyConverter)
+            .HasColumnType("date");
+
         var hasher = new PasswordHasher<Users>();
 
         modelBuilder.Entity<Users>().HasData(

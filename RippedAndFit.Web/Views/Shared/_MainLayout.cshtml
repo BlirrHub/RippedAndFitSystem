@@ -45,10 +45,14 @@
                             <a asp-controller="Administration" asp-action="Members"><i class="bi bi-people-fill"></i> Members</a>
                             <a asp-controller="Administration" asp-action="Logs"><i class="bi bi-clock-history"></i> Logs</a>
                             break;
-                        case "Frontdesk":
-                        case "Trainer":
+                        case "FrontDesk":
                             <a asp-controller="Administration" asp-action="Dashboard"><i class="bi bi-window-desktop"></i> Dashboard</a>
                             <a asp-controller="Administration" asp-action="Registration"><i class="bi bi-person-lines-fill"></i> Registration</a>
+                            <a asp-controller="Administration" asp-action="Members"><i class="bi bi-people-fill"></i> Members</a>
+                            <a asp-controller="Administration" asp-action="Logs"><i class="bi bi-clock-history"></i> Logs</a>
+                            break;
+                        case "Trainer":
+                            <a asp-controller="Administration" asp-action="Dashboard"><i class="bi bi-window-desktop"></i> Dashboard</a>
                             <a asp-controller="Administration" asp-action="Members"><i class="bi bi-people-fill"></i> Members</a>
                             <a asp-controller="Administration" asp-action="Logs"><i class="bi bi-clock-history"></i> Logs</a>
                             break;
