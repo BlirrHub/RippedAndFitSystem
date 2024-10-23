@@ -6,7 +6,7 @@
     ViewData["Title"] = "Registration";
 }
 
-<div class="registration-tab">
+<div class="wrapper">
     <h1>Register <b>Member</b></h1>
     @if (TempData["SuccessMessage"] != null)
     {
@@ -14,7 +14,7 @@
             @TempData["SuccessMessage"]
         </div>
     }
-    <div class="registration-form">
+    <div class="form">
         <form method="post" id="registrationForm">
             <div class="row-1">
                 <label>Name</label>

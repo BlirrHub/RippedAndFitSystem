@@ -1,0 +1,114 @@
+﻿.wrap {
+    padding: 1.5em;
+    color: white;
+    font-size: 0.725rem;
+}
+
+.greet-text {
+    color: black;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.greet-text span{
+    font-size: 1.5rem;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.count-and-graph {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.count{
+    display: flex;
+}
+
+.count div {
+    background-color: #202020;
+    flex: 1;
+    min-width: 75px;
+    min-height: 15vh;
+    text-align: center;
+    border-radius: 6px;
+    margin: 0.25em;
+}
+
+.graph {
+    background-color: #29292e;
+    min-width: 75px;
+    min-height: 25vh;
+    border-radius: 6px;
+}
+
+.month-nav {
+    text-align: center;
+    margin: 0.25em;
+}
+
+.month-nav a{
+    font-size: 1rem;
+    color: white;
+}
+
+.line-graph {
+    height: 22.5vh;
+}
+
+.lb-and-trainers {
+    display: flex;
+}
+
+.lb-and-trainers > div {
+    background-color: #29292e;
+    flex: 1;
+    min-width: 75px;
+    min-height: 25vh;
+    border-radius: 6px;
+    margin: 0.25em;
+}
+
+.lb-header {
+    display: flex;
+    align-items: center;
+    background-color: #202020;
+    border-radius: 6px;
+    height: 40px;
+    color: #ed563b;
+}
+
+.lb-header p {
+    margin: 0;
+    text-align: center;
+}
+
+.trainers-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #202020;
+    border-radius: 6px;
+    height: 40px;
+    color: #ed563b;
+}
+
+.trainers-header p {
+    margin: 0;
+    margin-left: 5px;
+}
+
+.trainers-header a {
+    background-color: #ed563b;
+    color: white;
+    text-decoration: none;
+    padding: 0.25em;
+    border-radius: 3px;
+    margin-right: 5px;
+}

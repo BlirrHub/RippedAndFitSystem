@@ -1,9 +1,173 @@
-﻿@model RippedAndFit.Domain.Entities.Users;
+﻿@using RippedAndFit.Domain.Enums
+@model RippedAndFit.Web.Models.AdministrationDataModel
+@* @model IEnumerable(RippedAndFit.Domain.Entities.Users); *@
 
 @{
     ViewData["Title"] = "Dashboard";
+
+    int memberCount = 0;
+    int staffCount = 0;
+
+    foreach (var user in Model.users)
+    {
+        if(user.Role is Roles.Member)
+        {
+            memberCount++;
+        }
+
+        if (user.Role is Roles.Trainer || user.Role is Roles.FrontDesk)
+        {
+            staffCount++;
+        }
+    }
 }
 
-<h1>
-    Hi, @Model.Username
-</h1>
+<div class="wrap">
+    <p class="greet-text">Hi <span>@Model.user.Username</span></p>
+
+    <div class="content">
+        <div class="count-and-graph">
+            <div class="count">
+                <div>
+                    <p>
+                        <img src="~/image/Walk-In.png"/><br />50 Walk-In
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <img src="~/image/Members.png" /><br />@memberCount Members
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <img src="~/image/Staffs.png" /><br />@staffCount Staff
+                    </p>
+                </div>
+            </div>
+
+            <div class="graph">
+                <div class="month-nav">
+                    <a href="#" id="prevMonth"><i class="bi bi-caret-left-fill"></i></a>
+                    <input type="month" id="monthInput"/>
+                    <a href="#" id="nextMonth"><i class="bi bi-caret-right-fill"></i></a>
+                </div>
+                <div class="line-graph">
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="lb-and-trainers">
+            <div class="lb">
+                <div class="lb-header">
+                    <p id="activeMembersText">MOST ACTIVE MEMBER'S FOR THE MONTH OF XXXXX</p>
+                </div>
+                <div>
+
+                </div>
+            </div>
+
+            <div class="trainers">
+                <div class="trainers-header">
+                    <p>Trainers</p>
+                    <a asp-controller="Admin" asp-action="Staffs">VIEW ALL</a>
+                </div>
+                <div>
+                   <table>
+                        @foreach (var trainer in Model.users)
+                        {
+                            if(trainer.Role == Roles.Trainer)
+                            {
+                                <tr>
+                                    <td>@trainer.Username</td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Script to render the line chart -->
+<script>
+    // LINE CHART SCRIPT
+    var ctx = document.getElementById('lineChart').getContext('2d');
+    var lineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Array.from({ length: 31 }, (_, i) => i + 1),
+            datasets: [
+                {
+                    label: 'Members',
+                    data: [100, 98, 105, 110, 112, 120, 130, 125, 128, 135, 138, 140, 145, 148, 150, 153, 155, 158, 160, 165, 170, 172, 175, 180, 185, 190, 195, 200, 205, 210, 215], // Data points for Members
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 2,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Walk-In',
+                    data: [50, 45, 55, 60, 58, 62, 65, 67, 70, 72, 75, 78, 80, 82, 85, 87, 88, 90, 92, 93, 95, 96, 98, 100, 102, 105, 107, 110, 112, 115, 118], // Data points for Walk-In
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderWidth: 2,
+                    pointRadius: 0 
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date in October'
+                    }
+                }
+            }
+        }
+    });
+
+    const monthInput = document.getElementById('monthInput');
+    const prevMonthButton = document.getElementById('prevMonth');
+    const nextMonthButton = document.getElementById('nextMonth');
+
+    // Function to change the month
+    function changeMonth(delta) {
+        const currentDate = new Date(monthInput.value + '-01'); 
+        currentDate.setMonth(currentDate.getMonth() + delta);
+        monthInput.value = currentDate.toISOString().slice(0, 7);
+    }
+
+    // Event listeners for the buttons
+    prevMonthButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        changeMonth(-1);
+    });
+
+    nextMonthButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        changeMonth(1);
+    });
+
+    // Function to update the active members text
+    function updateActiveMembersText() {
+        const monthValue = monthInput.value;
+        const monthDate = new Date(monthValue + '-01'); 
+        const options = { month: 'long' }; 
+        const monthName = monthDate.toLocaleString('default', options);
+        activeMembersText.innerText = `MOST ACTIVE MEMBER'S FOR THE MONTH OF ${monthName.toUpperCase()}`;
+    }
+
+    // Initialize the month input and text
+    monthInput.value = new Date().toISOString().slice(0, 7); 
+    updateActiveMembersText();
+</script>

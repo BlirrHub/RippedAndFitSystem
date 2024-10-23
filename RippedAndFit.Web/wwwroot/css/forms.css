@@ -3,7 +3,7 @@
     font-family: 'Poppins';
 }
 
-.registration-tab {
+.wrapper {
     padding: 1em;
 }
 
@@ -16,7 +16,7 @@ h1 b {
     color: #ed563b;
 }
 
-.registration-form {
+.form {
     background: #29292e;
     color: white;
     padding: 0.5em;
@@ -24,13 +24,13 @@ h1 b {
     border-radius: 12px;
 }
 
-.registration-form div {
+.form div {
     display: flex;
     flex-direction: column;
     margin: .25em;
 }
 
-.registration-form div input {
+.form div input {
     padding: 0.5em;
     border-radius: 5px;
     font-size: 1.2rem;

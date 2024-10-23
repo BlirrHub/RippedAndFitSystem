@@ -22,6 +22,8 @@ namespace RippedAndFit.Web.Controllers
 
         public async Task<IActionResult> Dashboard()
         {
+
+            var users = await _db.Users.ToListAsync();
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdClaim))
             {
@@ -37,7 +39,13 @@ namespace RippedAndFit.Web.Controllers
                 return NotFound("User not found.");
             }
 
-            return View(user);
+            var loginData = new AdministrationDataModel
+            {
+                user = user,
+                users = users
+            };
+
+            return View(loginData);
         }
 
         public IActionResult Registration()
